@@ -1,3 +1,5 @@
-export const WriterPage = function () {
+const WriterPage = function () {
   return <div>WriterPage</div>;
 };
+
+export default WriterPage;
