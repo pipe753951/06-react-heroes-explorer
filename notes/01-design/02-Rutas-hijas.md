@@ -10,10 +10,10 @@ Este es un ejemplo de la aplicación de las rutas hijas:
 export const appRouter = createBrowserRouter([
   {
     path: "/",
-    element: <WritersLayout />,
+    element: <HeroesLayout />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: "/writers/1", element: <WriterPage /> },
+      { path: "/heroes/1", element: <HeroPage /> },
       { path: "/search", element: <SearchPage /> },
     ],
   },

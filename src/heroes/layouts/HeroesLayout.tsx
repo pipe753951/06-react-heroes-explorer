@@ -1,6 +1,6 @@
 import { Link, Outlet } from "react-router";
 
-const WritersLayout = function () {
+const HeroesLayout = function () {
   return (
     <>
       <header className="flex items-center px-10 h-15 bg-slate-100 border-b-2 border-slate-400">
@@ -10,10 +10,10 @@ const WritersLayout = function () {
               <Link to="/">Ir al inicio</Link>
             </li>
             <li>
-              <Link to="/writers/1">Escritor</Link>
+              <Link to="/heroes/1">Héroe</Link>
             </li>
             <li>
-              <Link to="/search">Buscar escritores</Link>
+              <Link to="/search">Buscar héroes</Link>
             </li>
             <li>
               <Link to="/admin">Administración</Link>
@@ -28,4 +28,4 @@ const WritersLayout = function () {
   );
 };
 
-export default WritersLayout;
+export default HeroesLayout;
