@@ -1,4 +1,4 @@
-import CustomJumbotron from "@/components/shared/CustomJumbotron";
+import CustomJumbotron from "@/components/custom/CustomJumbotron";
 import HeroStatistics from "@/heroes/components/HeroStatistics";
 import SearchControls from "./ui/SearchControls";
 
