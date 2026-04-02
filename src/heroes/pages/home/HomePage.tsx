@@ -5,9 +5,7 @@ import {
   SortAsc,
   Heart,
   Grid,
-  Users,
   Zap,
-  Trophy,
   Eye,
   Brain,
   Gauge,
@@ -16,78 +14,28 @@ import {
   ChevronRight,
   MoreHorizontal,
 } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 import CustomJumbotron from "@/components/shared/CustomJumbotron";
+import HeroStatistics from "@/heroes/components/HeroStatistics";
 
 export default function SuperheroApp() {
   return (
     <div className="max-w-7xl mx-auto p-6">
-      {/* Header */}
+      {/* Custom Jumbotron */}
       <CustomJumbotron
         title="Universo de Superhéroes"
         description="Descubre, explora y administra superhéroes y villanos."
       />
 
       {/* Stats Dashboard */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Total Characters
-            </CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">16</div>
-            <div className="flex gap-1 mt-2">
-              <Badge variant="secondary" className="text-xs">
-                12 Heroes
-              </Badge>
-              <Badge variant="destructive" className="text-xs">
-                2 Villains
-              </Badge>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Favorites</CardTitle>
-            <Heart className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-red-600">3</div>
-            <p className="text-xs text-muted-foreground">18.8% of total</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Strongest</CardTitle>
-            <Zap className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-lg font-bold">Superman</div>
-            <p className="text-xs text-muted-foreground">Strength: 10/10</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Smartest</CardTitle>
-            <Trophy className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-lg font-bold">Iron Man</div>
-            <p className="text-xs text-muted-foreground">Intelligence: 10/10</p>
-          </CardContent>
-        </Card>
-      </div>
+      <HeroStatistics />
 
       {/* Controls */}
       <div className="flex flex-col lg:flex-row gap-4 mb-8">
