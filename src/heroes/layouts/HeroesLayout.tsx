@@ -2,8 +2,8 @@ import { Link, Outlet } from "react-router";
 
 const HeroesLayout = function () {
   return (
-    <>
-      <header className="flex items-center px-10 h-15 bg-slate-100 border-b-2 border-slate-400">
+    <div className="min-h-screen bg-linear-to-br from-slate-50 via-cyan-50 to-blue-50">
+      <header className="flex items-center px-10 h-15 bg-white border-b shadow-md">
         <nav>
           <ul className="flex gap-4">
             <li>
@@ -24,7 +24,7 @@ const HeroesLayout = function () {
       <main>
         <Outlet />
       </main>
-    </>
+    </div>
   );
 };
 
