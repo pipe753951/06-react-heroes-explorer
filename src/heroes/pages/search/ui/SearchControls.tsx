@@ -46,7 +46,7 @@ const SearchControls = function () {
       {/* Advanced Filters */}
       <div className="bg-white rounded-4xl p-6 mb-8 shadow-sm border">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-lg font-semibold">Filtros avanzados</h3>
+          <h2 className="text-lg font-semibold">Filtros avanzados</h2>
           <Button variant="text">Limpiar todo</Button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
