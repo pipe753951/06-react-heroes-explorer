@@ -30,6 +30,10 @@ const characterTypeClassNames: Record<CharacterType, string> = {
   hero: "bg-green-100 text-green-800 border-green-200",
 };
 
+const characterTypeNames: Record<CharacterType, string> = {
+  hero: "Héroe",
+};
+
 const companyBadgeClassNames: Record<Company, string> = {
   dc: "bg-blue-600",
   marvel: "bg-red-600",
@@ -118,7 +122,7 @@ const HeroGridCard = function (props: Props) {
             <Badge
               className={`text-xs ${characterTypeClassNames[characterType]}`}
             >
-              {characterType}
+              {characterTypeNames[characterType]}
             </Badge>
           </div>
           <Badge variant="outline" className="w-fit text-xs">
@@ -132,30 +136,30 @@ const HeroGridCard = function (props: Props) {
             <div className="space-y-1">
               <div className="flex items-center gap-1">
                 <Zap className="h-3 w-3 text-orange-500" />
-                <span className="text-xs font-medium">Strength</span>
+                <span className="text-xs font-medium">Fuerza</span>
               </div>
-              <Progress value={strength} className="h-2" />
+              <Progress value={strength} indicatorClassName="bg-orange-500" />
             </div>
             <div className="space-y-1">
               <div className="flex items-center gap-1">
                 <Brain className="h-3 w-3 text-blue-500" />
-                <span className="text-xs font-medium">Intelligence</span>
+                <span className="text-xs font-medium">Inteligencia</span>
               </div>
-              <Progress value={intelligence} className="h-2" />
+              <Progress value={intelligence} indicatorClassName="bg-blue-500" />
             </div>
             <div className="space-y-1">
               <div className="flex items-center gap-1">
                 <Gauge className="h-3 w-3 text-green-500" />
-                <span className="text-xs font-medium">Speed</span>
+                <span className="text-xs font-medium">Velocidad</span>
               </div>
-              <Progress value={speed} className="h-2" />
+              <Progress value={speed} indicatorClassName="bg-green-500" />
             </div>
             <div className="space-y-1">
               <div className="flex items-center gap-1">
-                <Shield className="h-3 w-3 text-purple-500" />
-                <span className="text-xs font-medium">Durability</span>
+                <Shield className="h-3 w-3 text-gray-500" />
+                <span className="text-xs font-medium">Resistencia</span>
               </div>
-              <Progress value={durability} className="h-2" />
+              <Progress value={durability} indicatorClassName="bg-gray-500" />
             </div>
           </div>
           {/* Powers */}
