@@ -1,10 +1,12 @@
-import { Link, Outlet } from "react-router";
+import CustomMenu from "@/components/custom/CustomMenu";
+import { Outlet } from "react-router";
 
 const HeroesLayout = function () {
   return (
     <div className="min-h-screen bg-linear-to-br from-slate-50 via-cyan-50 to-blue-50">
       <header className="flex items-center px-10 h-15 bg-white border-b shadow-md">
-        <nav>
+        <CustomMenu />
+        {/* <nav>
           <ul className="flex gap-4">
             <li>
               <Link to="/">Ir al inicio</Link>
@@ -19,7 +21,7 @@ const HeroesLayout = function () {
               <Link to="/admin">Administración</Link>
             </li>
           </ul>
-        </nav>
+        </nav> */}
       </header>
       <main>
         <Outlet />
