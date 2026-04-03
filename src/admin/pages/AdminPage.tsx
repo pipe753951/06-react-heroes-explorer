@@ -6,12 +6,12 @@ const AdminPage = function () {
       <CustomBreadcrumbs
         items={[
           {
-            href: "/",
-            name: "Inicio",
+            to: "/",
+            label: "Inicio",
           },
           {
-            href: "admin/",
-            name: "Panel de Administración",
+            to: "admin/",
+            label: "Panel de Administración",
           },
         ]}
       />

@@ -6,16 +6,16 @@ const HeroPage = function () {
       <CustomBreadcrumbs
         items={[
           {
-            href: "/",
-            name: "Inicio",
+            to: "/",
+            label: "Inicio",
           },
           {
-            href: "heroes/",
-            name: "Héroes",
+            to: "heroes/",
+            label: "Héroes",
           },
           {
-            href: "superman/",
-            name: "Superman",
+            to: "superman/",
+            label: "Superman",
           },
         ]}
       />

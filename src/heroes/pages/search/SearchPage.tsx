@@ -15,12 +15,12 @@ const SearchPage = function () {
       <CustomBreadcrumbs
         items={[
           {
-            href: "/",
-            name: "Inicio",
+            to: "/",
+            label: "Inicio",
           },
           {
-            href: "/search",
-            name: "Buscar",
+            to: "/search",
+            label: "Buscar",
           },
         ]}
       />

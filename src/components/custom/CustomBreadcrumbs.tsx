@@ -8,13 +8,13 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Link } from "react-router";
 
-interface CustonsBreadcrumbItem {
-  href: string;
-  name: string;
+interface CustomBreadcrumbItem {
+  label: string;
+  to: string;
 }
 
 interface Props {
-  items: CustonsBreadcrumbItem[];
+  items: CustomBreadcrumbItem[];
 }
 
 export function CustomBreadcrumbs({ items }: Props) {
@@ -27,10 +27,10 @@ export function CustomBreadcrumbs({ items }: Props) {
           if (Number.isInteger(index / 2)) {
             const itemHref = items
               .slice(0, itemIndex + 1)
-              .map((item) => item.href)
+              .map((item) => item.to)
               .join("");
 
-            const itemName = items[itemIndex].name;
+            const itemName = items[itemIndex].label;
             if (itemIndex !== items.length - 1) {
               return (
                 <BreadcrumbItem key={itemHref}>

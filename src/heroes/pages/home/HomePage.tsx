@@ -27,8 +27,8 @@ export default function SuperheroApp() {
       <CustomBreadcrumbs
         items={[
           {
-            href: "/",
-            name: "Inicio",
+            to: "/",
+            label: "Inicio",
           },
         ]}
       />
