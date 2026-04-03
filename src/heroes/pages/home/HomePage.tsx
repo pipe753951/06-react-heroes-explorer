@@ -9,6 +9,7 @@ import HeroStatistics from "@/heroes/components/HeroStatistics";
 import SearchControls from "../search/ui/SearchControls";
 import HeroGrid from "@/heroes/components/HeroGrid";
 import CustomPagination from "@/components/custom/CustomPagination";
+import CustomBreadcrumbs from "@/components/custom/CustomBreadcrumbs";
 
 type HomeTabs = "all" | "favorites" | "heroes" | "villains";
 
@@ -21,6 +22,15 @@ export default function SuperheroApp() {
       <CustomJumbotron
         title="Universo de Superhéroes"
         description="Descubre, explora y administra superhéroes y villanos."
+      />
+
+      <CustomBreadcrumbs
+        items={[
+          {
+            href: "/",
+            name: "Inicio",
+          },
+        ]}
       />
 
       {/* Stats Dashboard */}

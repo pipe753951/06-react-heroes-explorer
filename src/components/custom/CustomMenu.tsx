@@ -9,7 +9,6 @@ import {
 
 const CustomMenu = function () {
   const { pathname } = useLocation();
-  console.log({ pathname });
 
   const isActive = (path: string) => pathname === path;
 
