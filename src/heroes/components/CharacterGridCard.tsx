@@ -49,7 +49,7 @@ const teamNames: Record<Team, string> = {
   avengers: "Avengers",
 };
 
-const HeroGridCard = function (props: Props) {
+const CharacterGridCard = function (props: Props) {
   const {
     active,
     author,
@@ -191,4 +191,4 @@ const HeroGridCard = function (props: Props) {
   );
 };
 
-export default HeroGridCard;
+export default CharacterGridCard;

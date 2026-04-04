@@ -1,10 +1,10 @@
-import HeroGridCard from "./HeroGridCard";
+import CharacterGridCard from "./CharacterGridCard";
 
-const HeroGrid = function () {
+const CharacterGrid = function () {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
       {/* Hero Card 1 - Superman */}
-      <HeroGridCard
+      <CharacterGridCard
         active
         author="Clark Kent"
         characterType="hero"
@@ -22,7 +22,7 @@ const HeroGrid = function () {
       />
 
       {/* Hero Card 2 - Superman */}
-      <HeroGridCard
+      <CharacterGridCard
         active
         author="Clark Kent"
         characterType="hero"
@@ -42,4 +42,4 @@ const HeroGrid = function () {
   );
 };
 
-export default HeroGrid;
+export default CharacterGrid;
