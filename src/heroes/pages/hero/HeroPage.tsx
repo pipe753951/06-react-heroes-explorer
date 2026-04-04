@@ -1,8 +1,12 @@
 import CustomBreadcrumbs from "@/components/custom/CustomBreadcrumbs";
+import { useParams } from "react-router";
 
 const HeroPage = function () {
+  const { slug = "" } = useParams();
+  console.log({ slug });
+
   return (
-    <div>
+    <>
       <CustomBreadcrumbs
         items={[
           {
@@ -21,7 +25,7 @@ const HeroPage = function () {
       />
 
       <p>HeroPage</p>
-    </div>
+    </>
   );
 };
 
