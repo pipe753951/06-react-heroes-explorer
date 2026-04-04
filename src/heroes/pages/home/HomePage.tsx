@@ -31,7 +31,7 @@ export default function SuperheroApp() {
   console.log({ heroesResponseData: charactersResponseData });
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="mx-auto max-w-7xl p-6">
       {/* Custom Jumbotron */}
       <CustomJumbotron
         title="Universo de Superhéroes"
@@ -105,11 +105,3 @@ export default function SuperheroApp() {
     </div>
   );
 }
-
-interface AllCharactersGridProps {
-  characters: Hero[];
-}
-
-const AllCharactersGrid = function ({ characters }: AllCharactersGridProps) {
-  return <CharacterGrid characters={characters} />;
-};
