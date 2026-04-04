@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useSearchParams } from "react-router";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 import { Heart } from "lucide-react";
@@ -13,12 +13,29 @@ import HeroStatistics from "@/heroes/components/HeroStatistics";
 import SearchControls from "../search/ui/SearchControls";
 
 import getHeroesByPage from "@/heroes/actions/getHeroesByPage.action";
-import type { Hero } from "@/heroes/types/hero.response";
 
 type HomeTabs = "all" | "favorites" | "heroes" | "villains";
+const validHomeTabs = ["all", "favorites", "heroes", "villains"];
 
 export default function SuperheroApp() {
-  const [activeTab, setActiveTab] = useState<HomeTabs>("all");
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const activeTab: HomeTabs | string = searchParams.get("tab") ?? "all";
+  const setActiveTab = (tab: HomeTabs) => {
+    setSearchParams((prevParams) => {
+      prevParams.set("tab", tab);
+      return prevParams;
+    });
+  };
+
+  if (!validHomeTabs.includes(activeTab)) {
+    setActiveTab("all");
+  }
+
+  console.log(+(searchParams.get("index") ?? 0));
+  console.log(searchParams.get("offset"));
+
+  // const [activeTab, setActiveTab] = useState<HomeTabs>("all");
 
   const { data: charactersResponseData } = useQuery(
     queryOptions({
