@@ -9,10 +9,14 @@ export interface Hero {
   intelligence: number;
   speed: number;
   durability: number;
-  team: string;
+  team: CharacterTeam;
   image: string;
   firstAppearance: string;
   status: string;
-  category: string;
-  universe: string;
+  category: CharacterCategory;
+  universe: CharacterUniverse;
 }
+
+export type CharacterUniverse = "DC" | "Marvel";
+export type CharacterCategory = "Hero";
+export type CharacterTeam = "Vengadores" | "Liga de la Justicia";

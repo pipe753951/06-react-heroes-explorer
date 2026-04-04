@@ -8,18 +8,19 @@ import CustomBreadcrumbs from "@/components/custom/CustomBreadcrumbs";
 import CustomJumbotron from "@/components/custom/CustomJumbotron";
 import CustomPagination from "@/components/custom/CustomPagination";
 
-import HeroGrid from "@/heroes/components/HeroGrid";
+import CharacterGrid from "@/heroes/components/CharacterGrid";
 import HeroStatistics from "@/heroes/components/HeroStatistics";
 import SearchControls from "../search/ui/SearchControls";
 
 import getHeroesByPage from "@/heroes/actions/getHeroesByPage.action";
+import type { Hero } from "@/heroes/types/hero.response";
 
 type HomeTabs = "all" | "favorites" | "heroes" | "villains";
 
 export default function SuperheroApp() {
   const [activeTab, setActiveTab] = useState<HomeTabs>("all");
 
-  const { data } = useQuery(
+  const { data: charactersResponseData } = useQuery(
     queryOptions({
       queryKey: ["heroes"],
       queryFn: getHeroesByPage,
@@ -27,7 +28,7 @@ export default function SuperheroApp() {
     }),
   );
 
-  console.log(data);
+  console.log({ heroesResponseData: charactersResponseData });
 
   return (
     <div className="max-w-7xl mx-auto p-6">
@@ -79,19 +80,23 @@ export default function SuperheroApp() {
 
         <TabsContent value="all">
           {/* Character Grid */}
-          <HeroGrid />
+          {charactersResponseData ? (
+            <CharacterGrid characters={charactersResponseData.heroes} />
+          ) : (
+            <p>Cargando...</p>
+          )}
         </TabsContent>
         <TabsContent value="favorites">
           {/* Favorites Grid */}
-          <HeroGrid />
+          {/* <CharacterGrid /> */}
         </TabsContent>
         <TabsContent value="heroes">
           {/* Heroes Grid */}
-          <HeroGrid />
+          {/* <CharacterGrid /> */}
         </TabsContent>
         <TabsContent value="villains">
           {/* Villains Grid */}
-          <HeroGrid />
+          {/* <CharacterGrid /> */}
         </TabsContent>
       </Tabs>
 
@@ -100,3 +105,11 @@ export default function SuperheroApp() {
     </div>
   );
 }
+
+interface AllCharactersGridProps {
+  characters: Hero[];
+}
+
+const AllCharactersGrid = function ({ characters }: AllCharactersGridProps) {
+  return <CharacterGrid characters={characters} />;
+};

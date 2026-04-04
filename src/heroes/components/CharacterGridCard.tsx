@@ -4,63 +4,56 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-
-type CharacterType = "hero";
-type Company = "dc" | "marvel";
-type Team = "justiceLeague" | "avengers";
+import type {
+  CharacterCategory,
+  CharacterTeam,
+  CharacterUniverse,
+} from "../types/hero.response";
 
 interface Props {
   active: boolean;
-  author: string;
-  characterType: CharacterType;
-  company: Company;
-  createdAtYear: number;
+  name: string;
+  characterCategory: CharacterCategory;
+  universe: CharacterUniverse;
+  createdAtYear: string;
   description: string;
   durability: number;
   favorite: boolean;
+  imageURL: string;
   intelligence: number;
-  name: string;
+  alias: string;
   powers: string[];
   speed: number;
   strength: number;
-  team: Team;
+  team: CharacterTeam;
 }
 
-const characterTypeClassNames: Record<CharacterType, string> = {
-  hero: "bg-green-100 text-green-800 border-green-200",
+const characterCategoryClassNames: Record<CharacterCategory, string> = {
+  Hero: "bg-green-100 text-green-800 border-green-200",
 };
 
-const characterTypeNames: Record<CharacterType, string> = {
-  hero: "Héroe",
+const characterCategoryNames: Record<CharacterCategory, string> = {
+  Hero: "Héroe",
 };
 
-const companyBadgeClassNames: Record<Company, string> = {
-  dc: "bg-blue-600",
-  marvel: "bg-red-600",
-};
-
-const companyNames: Record<Company, string> = {
-  dc: "DC",
-  marvel: "Marvel",
-};
-
-const teamNames: Record<Team, string> = {
-  justiceLeague: "Justice League",
-  avengers: "Avengers",
+const universeBadgeClassNames: Record<CharacterUniverse, string> = {
+  DC: "bg-blue-600",
+  Marvel: "bg-red-600",
 };
 
 const CharacterGridCard = function (props: Props) {
   const {
     active,
-    author,
-    characterType,
-    company,
+    name,
+    characterCategory,
+    universe,
     createdAtYear,
     description,
     durability,
     favorite,
+    imageURL,
     intelligence,
-    name,
+    alias,
     powers,
     speed,
     strength,
@@ -72,8 +65,8 @@ const CharacterGridCard = function (props: Props) {
       <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-linear-to-br from-white to-gray-50">
         <div className="relative h-64 overflow-hidden">
           <img
-            src="/placeholder.svg?height=300&width=300"
-            alt={name}
+            src={imageURL}
+            alt={alias}
             className="object-cover transition-all duration-500 group-hover:scale-110"
           />
           {/* Status indicator */}
@@ -88,9 +81,9 @@ const CharacterGridCard = function (props: Props) {
           </div>
           {/* Universe badge */}
           <Badge
-            className={`absolute top-3 right-3 text-xs text-white ${companyBadgeClassNames[company]}`}
+            className={`absolute top-3 right-3 text-xs text-white ${universeBadgeClassNames[universe]}`}
           >
-            {companyNames[company]}
+            {universe}
           </Badge>
           {/* Favorite button */}
           <Button
@@ -108,7 +101,7 @@ const CharacterGridCard = function (props: Props) {
             size="sm"
             variant="text"
             className="absolute bottom-3 left-3 bg-white/90 hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity"
-            aria-label={`Ver detalles de ${name}`}
+            aria-label={`Ver detalles de ${alias}`}
           >
             <Eye className="h-4 w-4 text-gray-600" />
           </Button>
@@ -116,17 +109,17 @@ const CharacterGridCard = function (props: Props) {
         <CardHeader className="pb-3">
           <div className="flex justify-between items-start">
             <div className="space-y-1">
-              <h2 className="font-bold text-lg leading-tight">{name}</h2>
-              <p className="text-sm text-gray-600">{author}</p>
+              <h2 className="font-bold text-lg leading-tight">{alias}</h2>
+              <p className="text-sm text-gray-600">{name}</p>
             </div>
             <Badge
-              className={`text-xs ${characterTypeClassNames[characterType]}`}
+              className={`text-xs ${characterCategoryClassNames[characterCategory]}`}
             >
-              {characterTypeNames[characterType]}
+              {characterCategoryNames[characterCategory]}
             </Badge>
           </div>
           <Badge variant="outline" className="w-fit text-xs">
-            {teamNames[team]}
+            {team}
           </Badge>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -138,28 +131,40 @@ const CharacterGridCard = function (props: Props) {
                 <Zap className="h-3 w-3 text-orange-500" />
                 <span className="text-xs font-medium">Fuerza</span>
               </div>
-              <Progress value={strength} indicatorClassName="bg-orange-500" />
+              <Progress
+                value={(strength / 10) * 100}
+                indicatorClassName="bg-orange-500"
+              />
             </div>
             <div className="space-y-1">
               <div className="flex items-center gap-1">
                 <Brain className="h-3 w-3 text-blue-500" />
                 <span className="text-xs font-medium">Inteligencia</span>
               </div>
-              <Progress value={intelligence} indicatorClassName="bg-blue-500" />
+              <Progress
+                value={(intelligence / 10) * 100}
+                indicatorClassName="bg-blue-500"
+              />
             </div>
             <div className="space-y-1">
               <div className="flex items-center gap-1">
                 <Gauge className="h-3 w-3 text-green-500" />
                 <span className="text-xs font-medium">Velocidad</span>
               </div>
-              <Progress value={speed} indicatorClassName="bg-green-500" />
+              <Progress
+                value={(speed / 10) * 100}
+                indicatorClassName="bg-green-500"
+              />
             </div>
             <div className="space-y-1">
               <div className="flex items-center gap-1">
                 <Shield className="h-3 w-3 text-gray-500" />
                 <span className="text-xs font-medium">Resistencia</span>
               </div>
-              <Progress value={durability} indicatorClassName="bg-gray-500" />
+              <Progress
+                value={(durability / 10) * 100}
+                indicatorClassName="bg-gray-500"
+              />
             </div>
           </div>
           {/* Powers */}

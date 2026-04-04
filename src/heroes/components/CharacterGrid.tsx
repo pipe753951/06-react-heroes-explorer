@@ -1,43 +1,33 @@
+import type { Hero } from "../types/hero.response";
 import CharacterGridCard from "./CharacterGridCard";
 
-const CharacterGrid = function () {
+interface Props {
+  characters: Hero[];
+}
+
+const CharacterGrid = function ({ characters }: Props) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-      {/* Hero Card 1 - Superman */}
-      <CharacterGridCard
-        active
-        author="Clark Kent"
-        characterType="hero"
-        company="dc"
-        createdAtYear={1938}
-        description="The Last Son of Krypton, protector of Earth and symbol of hope for all humanity."
-        durability={100}
-        favorite
-        intelligence={80}
-        name="Superman"
-        powers={["Super Strength", "Flight"]}
-        speed={90}
-        strength={100}
-        team="justiceLeague"
-      />
-
-      {/* Hero Card 2 - Superman */}
-      <CharacterGridCard
-        active
-        author="Clark Kent"
-        characterType="hero"
-        company="dc"
-        createdAtYear={1938}
-        description="The Last Son of Krypton, protector of Earth and symbol of hope for all humanity."
-        durability={100}
-        favorite
-        intelligence={80}
-        name="Superman 2"
-        powers={["Super Strength", "Flight"]}
-        speed={90}
-        strength={100}
-        team="justiceLeague"
-      />
+      {characters.map((character) => (
+        <CharacterGridCard
+          key={character.id}
+          active={character.status === "Active"}
+          alias={character.alias}
+          characterCategory={character.category}
+          universe={character.universe}
+          createdAtYear={character.firstAppearance}
+          description={character.description}
+          durability={character.durability}
+          favorite
+          imageURL={character.image}
+          intelligence={character.intelligence}
+          name={character.name}
+          powers={character.powers}
+          speed={character.speed}
+          strength={character.speed}
+          team={character.team}
+        />
+      ))}
     </div>
   );
 };
