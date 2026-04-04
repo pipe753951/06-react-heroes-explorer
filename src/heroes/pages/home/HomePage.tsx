@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { queryOptions, useQuery } from "@tanstack/react-query";
 
 import { Heart } from "lucide-react";
 
@@ -17,6 +18,16 @@ type HomeTabs = "all" | "favorites" | "heroes" | "villains";
 
 export default function SuperheroApp() {
   const [activeTab, setActiveTab] = useState<HomeTabs>("all");
+
+  const { data } = useQuery(
+    queryOptions({
+      queryKey: ["heroes"],
+      queryFn: getHeroesByPage,
+      staleTime: 300000, // 1000 * 60 * 5
+    }),
+  );
+
+  console.log(data);
 
   useEffect(() => {
     getHeroesByPage().then(console.log);
