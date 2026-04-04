@@ -1,20 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Heart } from "lucide-react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
+import CustomBreadcrumbs from "@/components/custom/CustomBreadcrumbs";
 import CustomJumbotron from "@/components/custom/CustomJumbotron";
+import CustomPagination from "@/components/custom/CustomPagination";
+
+import HeroGrid from "@/heroes/components/HeroGrid";
 import HeroStatistics from "@/heroes/components/HeroStatistics";
 import SearchControls from "../search/ui/SearchControls";
-import HeroGrid from "@/heroes/components/HeroGrid";
-import CustomPagination from "@/components/custom/CustomPagination";
-import CustomBreadcrumbs from "@/components/custom/CustomBreadcrumbs";
+
+import getHeroesByPage from "@/heroes/actions/getHeroesByPage.action";
 
 type HomeTabs = "all" | "favorites" | "heroes" | "villains";
 
 export default function SuperheroApp() {
   const [activeTab, setActiveTab] = useState<HomeTabs>("all");
+
+  useEffect(() => {
+    getHeroesByPage().then(console.log);
+  }, []);
 
   return (
     <div className="max-w-7xl mx-auto p-6">
