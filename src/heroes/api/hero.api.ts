@@ -1,9 +1,9 @@
 import axios from "axios";
 
-const BASE_URL = import.meta.env["VITE_API_URL"];
+export const HERO_API_BASE_URL = import.meta.env["VITE_API_URL"];
 
 const heroApi = axios.create({
-  baseURL: `${BASE_URL}/api/heroes`,
+  baseURL: `${HERO_API_BASE_URL}/api/heroes`,
 });
 
 export default heroApi;

@@ -1,11 +1,15 @@
-import heroApi from "../api/hero.api";
+import heroApi, { HERO_API_BASE_URL } from "../api/hero.api";
+import type { HeroesResponse } from "../types/getHeroes.response";
 
-const getHeroesByPage = async () => {
-  const { data } = await heroApi.get("/");
+const getHeroesByPage = async (): Promise<HeroesResponse> => {
+  const { data } = await heroApi.get<HeroesResponse>("/");
 
-  console.log({ data });
+  const heroes = data.heroes.map((hero) => ({
+    ...hero,
+    image: `${HERO_API_BASE_URL}/images/${hero.image}`,
+  }));
 
-  return data;
+  return { ...data, heroes };
 };
 
 export default getHeroesByPage;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
 import { Heart } from "lucide-react";
@@ -28,10 +28,6 @@ export default function SuperheroApp() {
   );
 
   console.log(data);
-
-  useEffect(() => {
-    getHeroesByPage().then(console.log);
-  }, []);
 
   return (
     <div className="max-w-7xl mx-auto p-6">
