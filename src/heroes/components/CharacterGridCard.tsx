@@ -132,7 +132,7 @@ const CharacterGridCard = function (props: Props) {
                 <span className="text-xs font-medium">Fuerza</span>
               </div>
               <Progress
-                value={(strength / 10) * 100}
+                value={strength * 10}
                 indicatorClassName="bg-orange-500"
               />
             </div>
@@ -142,7 +142,7 @@ const CharacterGridCard = function (props: Props) {
                 <span className="text-xs font-medium">Inteligencia</span>
               </div>
               <Progress
-                value={(intelligence / 10) * 100}
+                value={intelligence * 10}
                 indicatorClassName="bg-blue-500"
               />
             </div>
@@ -151,10 +151,7 @@ const CharacterGridCard = function (props: Props) {
                 <Gauge className="h-3 w-3 text-green-500" />
                 <span className="text-xs font-medium">Velocidad</span>
               </div>
-              <Progress
-                value={(speed / 10) * 100}
-                indicatorClassName="bg-green-500"
-              />
+              <Progress value={speed * 10} indicatorClassName="bg-green-500" />
             </div>
             <div className="space-y-1">
               <div className="flex items-center gap-1">
@@ -162,7 +159,7 @@ const CharacterGridCard = function (props: Props) {
                 <span className="text-xs font-medium">Resistencia</span>
               </div>
               <Progress
-                value={(durability / 10) * 100}
+                value={durability * 10}
                 indicatorClassName="bg-gray-500"
               />
             </div>
