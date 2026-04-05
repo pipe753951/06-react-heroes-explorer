@@ -13,24 +13,28 @@ import HeroStatistics from "@/heroes/components/HeroStatistics";
 import SearchControls from "../search/ui/SearchControls";
 
 import getHeroesByPage from "@/heroes/actions/getHeroesByPage.action";
+import { useMemo } from "react";
 
-type HomeTabs = "all" | "favorites" | "heroes" | "villains";
-const validHomeTabs = ["all", "favorites", "heroes", "villains"];
+type HomeTab = "all" | "favorites" | "heroes" | "villains";
+const validHomeTabs: HomeTab[] = ["all", "favorites", "heroes", "villains"];
 
 export default function SuperheroApp() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const activeTab: HomeTabs | string = searchParams.get("tab") ?? "all";
-  const setActiveTab = (tab: HomeTabs) => {
+  const activeTab: HomeTab = useMemo(() => {
+    const param = searchParams.get("tab") ?? "";
+
+    if ((validHomeTabs as string[]).includes(param)) return param as HomeTab;
+
+    return "all";
+  }, [searchParams]);
+
+  const setActiveTab = (tab: HomeTab) => {
     setSearchParams((prevParams) => {
       prevParams.set("tab", tab);
       return prevParams;
     });
   };
-
-  if (!validHomeTabs.includes(activeTab)) {
-    setActiveTab("all");
-  }
 
   console.log(+(searchParams.get("index") ?? 0));
   console.log(searchParams.get("offset"));
