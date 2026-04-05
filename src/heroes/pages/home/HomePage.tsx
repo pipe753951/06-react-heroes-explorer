@@ -19,7 +19,7 @@ import usePageNavigation from "@/shared/hooks/usePageNavigation";
 type HomeTab = "all" | "favorites" | "heroes" | "villains";
 const validHomeTabs: HomeTab[] = ["all", "favorites", "heroes", "villains"];
 
-export default function SuperheroApp() {
+export function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { page, limit } = usePageNavigation({ searchParams, setSearchParams });
 
@@ -32,9 +32,11 @@ export default function SuperheroApp() {
   }, [searchParams]);
 
   useEffect(() => {
-    const tabParam = searchParams.get("tab") ?? "";
+    const currentParams = new URLSearchParams(window.location.search);
+    const tabParam = currentParams.get("tab");
 
-    if ((validHomeTabs as string[]).includes(tabParam)) return;
+    if (tabParam && (validHomeTabs as string[]).includes(tabParam)) return;
+
     setSearchParams(
       (prevParams) => {
         const newParams = new URLSearchParams(prevParams);
@@ -43,7 +45,7 @@ export default function SuperheroApp() {
       },
       { replace: true },
     );
-  }, [searchParams, setSearchParams]);
+  }, [setSearchParams]);
 
   const { data: charactersResponseData } = useQuery(
     queryOptions({
@@ -136,3 +138,5 @@ export default function SuperheroApp() {
     </div>
   );
 }
+
+export default HomePage;

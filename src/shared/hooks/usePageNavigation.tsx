@@ -51,16 +51,6 @@ const usePageNavigation = function ({ searchParams, setSearchParams }: Props) {
     });
   };
 
-  // If page is invalid, set it to "1" in params.
-  if (isPageInvalid) {
-    setPage(1);
-  }
-
-  // If limit is invalid, set it to "6" in params.
-  if (isLimitInvalid) {
-    setLimit(6);
-  }
-
   return {
     page: isPageInvalid ? 1 : page,
     limit: isPageInvalid ? 6 : limit,
