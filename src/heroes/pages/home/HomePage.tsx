@@ -13,13 +13,15 @@ import HeroStatistics from "@/heroes/components/HeroStatistics";
 import SearchControls from "../search/ui/SearchControls";
 
 import getHeroesByPage from "@/heroes/actions/getHeroesByPage.action";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
+import usePageNavigation from "@/shared/hooks/usePageNavigation";
 
 type HomeTab = "all" | "favorites" | "heroes" | "villains";
 const validHomeTabs: HomeTab[] = ["all", "favorites", "heroes", "villains"];
 
 export default function SuperheroApp() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { page, limit } = usePageNavigation({ searchParams, setSearchParams });
 
   const activeTab: HomeTab = useMemo(() => {
     const param = searchParams.get("tab") ?? "";
@@ -29,27 +31,35 @@ export default function SuperheroApp() {
     return "all";
   }, [searchParams]);
 
-  const setActiveTab = (tab: HomeTab) => {
-    setSearchParams((prevParams) => {
-      prevParams.set("tab", tab);
-      return prevParams;
-    });
-  };
+  useEffect(() => {
+    const tabParam = searchParams.get("tab") ?? "";
 
-  console.log(+(searchParams.get("index") ?? 0));
-  console.log(searchParams.get("offset"));
-
-  // const [activeTab, setActiveTab] = useState<HomeTabs>("all");
+    if ((validHomeTabs as string[]).includes(tabParam)) return;
+    setSearchParams(
+      (prevParams) => {
+        const newParams = new URLSearchParams(prevParams);
+        newParams.set("tab", "all");
+        return newParams;
+      },
+      { replace: true },
+    );
+  }, [searchParams, setSearchParams]);
 
   const { data: charactersResponseData } = useQuery(
     queryOptions({
-      queryKey: ["heroes"],
-      queryFn: getHeroesByPage,
+      queryKey: ["heroes", page, limit],
+      queryFn: () => getHeroesByPage(page, limit),
       staleTime: 300000, // 1000 * 60 * 5
     }),
   );
 
-  console.log({ heroesResponseData: charactersResponseData });
+  const setActiveTab = (tab: HomeTab) => {
+    setSearchParams((prevParams) => {
+      const newParams = new URLSearchParams(prevParams);
+      newParams.set("tab", tab);
+      return newParams;
+    });
+  };
 
   return (
     <div className="mx-auto max-w-7xl p-6">
