@@ -77,7 +77,7 @@ const CharacterGridCard = function (props: Props) {
             onClick={handleImageClick}
             src={imageURL}
             alt={alias}
-            className="cursor-pointer object-cover transition-all duration-500 group-hover:scale-110"
+            className="size-full cursor-pointer object-cover object-[50%_20%] transition-all duration-500 group-hover:scale-110"
           />
           {/* Status indicator */}
           <div className="absolute top-3 left-3 flex items-center gap-2">
