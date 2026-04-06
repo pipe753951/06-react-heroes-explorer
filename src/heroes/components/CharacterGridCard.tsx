@@ -32,10 +32,12 @@ interface Props {
 
 const characterCategoryClassNames: Record<CharacterCategory, string> = {
   Hero: "bg-green-100 text-green-800 border-green-200",
+  Villain: "bg-red-100 text-red-800 border-red-200",
 };
 
 const characterCategoryNames: Record<CharacterCategory, string> = {
   Hero: "Héroe",
+  Villain: "Villano",
 };
 
 const universeBadgeClassNames: Record<CharacterUniverse, string> = {

@@ -18,5 +18,5 @@ export interface Hero {
 }
 
 export type CharacterUniverse = "DC" | "Marvel";
-export type CharacterCategory = "Hero";
+export type CharacterCategory = "Hero" | "Villain";
 export type CharacterTeam = "Vengadores" | "Liga de la Justicia";
