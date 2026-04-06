@@ -8,7 +8,7 @@ import type {
   CharacterCategory,
   CharacterTeam,
   CharacterUniverse,
-} from "../types/hero.response";
+} from "../types/character.response";
 import { useNavigate } from "react-router";
 
 interface Props {

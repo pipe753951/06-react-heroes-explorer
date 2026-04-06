@@ -1,9 +1,9 @@
-import type { Hero } from "./hero.response";
+import type { Character } from "./character.response";
 
 export interface SummaryInformationResponse {
   totalHeroes: number;
-  strongestHero: Hero;
-  smartestHero: Hero;
+  strongestHero: Character;
+  smartestHero: Character;
   heroCount: number;
   villainCount: number;
 }

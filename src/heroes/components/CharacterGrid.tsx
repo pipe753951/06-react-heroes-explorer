@@ -1,8 +1,8 @@
-import type { Hero } from "../types/hero.response";
+import type { Character } from "../types/character.response";
 import CharacterGridCard from "./CharacterGridCard";
 
 interface Props {
-  characters: Hero[];
+  characters: Character[];
 }
 
 const CharacterGrid = function ({ characters }: Props) {
