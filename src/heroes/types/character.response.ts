@@ -12,11 +12,12 @@ export interface Character {
   team: CharacterTeam;
   image: string;
   firstAppearance: string;
-  status: string;
+  status: CharacterStatus;
   category: CharacterCategory;
   universe: CharacterUniverse;
 }
 
-export type CharacterUniverse = "DC" | "Marvel";
 export type CharacterCategory = "Hero" | "Villain";
+export type CharacterStatus = "Active" | "Inactive" | "Retired";
 export type CharacterTeam = "Vengadores" | "Liga de la Justicia";
+export type CharacterUniverse = "DC" | "Marvel";

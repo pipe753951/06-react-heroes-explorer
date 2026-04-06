@@ -68,7 +68,7 @@ const CharacterGridCard = function (props: Props) {
   const navigate = useNavigate();
 
   const handleImageClick = () => {
-    navigate(`/heroes/${slug}`);
+    navigate(`/character/${slug}`);
   };
 
   return (
