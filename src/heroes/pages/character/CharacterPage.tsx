@@ -1,7 +1,7 @@
 import CustomBreadcrumbs from "@/components/custom/CustomBreadcrumbs";
 import { useParams } from "react-router";
 
-const HeroPage = function () {
+const CharacterPage = function () {
   const { slug = "" } = useParams();
   console.log({ slug });
 
@@ -29,4 +29,4 @@ const HeroPage = function () {
   );
 };
 
-export default HeroPage;
+export default CharacterPage;
