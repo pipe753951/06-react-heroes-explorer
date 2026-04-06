@@ -7,6 +7,7 @@ const useCharacterInformation = (idOrSlug: string) =>
       queryKey: ["character-information", { idOrSlug }],
       queryFn: () => getCharacter(idOrSlug),
       staleTime: 300000, // 1000ms * 60s * 5m
+      retry: false,
     }),
   );
 

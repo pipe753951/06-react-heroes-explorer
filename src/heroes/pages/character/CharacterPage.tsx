@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 
 import { Shield, Zap, Brain, Gauge, Users, Star, Award } from "lucide-react";
 
@@ -13,13 +13,33 @@ import type {
   CharacterUniverse,
 } from "@/heroes/types/character.response";
 import useCharacterInformation from "@/heroes/hooks/useCharacterInformation";
+import { Button } from "@/components/ui/button";
+import CustomBreadcrumbs from "@/components/custom/CustomBreadcrumbs";
+import { cn } from "@/lib/utils";
 
 export function CharacterPage() {
   const { idOrSlug: characterIdOrSlug = "clark-kent" } = useParams();
-  const { data: characterInformation } =
+  const { data: characterInformation, isError } =
     useCharacterInformation(characterIdOrSlug);
 
-  if (characterInformation === undefined) {
+  if (isError) {
+    return (
+      <div className="m-auto text-center">
+        <h1 className="mb-4 text-5xl font-semibold">
+          No fue posible encontrar al personaje indicado
+        </h1>
+        <p className="my-2">
+          Por favor, verifica el URL o intenta buscar en el sitio.
+        </p>
+
+        <Link to="/">
+          <Button>Volver</Button>
+        </Link>
+      </div>
+    );
+  }
+
+  if (!characterInformation) {
     return <div>Cargando...</div>;
   }
 
@@ -67,7 +87,7 @@ export function CharacterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen w-full bg-gray-50">
       {/* Header Banner */}
       <div className="bg-linear-to-r from-slate-900 via-blue-900 to-slate-900 text-white">
         <div className="mx-auto max-w-7xl px-6 py-12">
@@ -88,6 +108,26 @@ export function CharacterPage() {
             </div>
 
             <div className="flex-1 text-center md:text-left">
+              <CustomBreadcrumbs
+                linkClassName="text-white hover:text-white/70"
+                pageClassName="text-white"
+                separatorClassName="text-white/60"
+                items={[
+                  {
+                    to: "/",
+                    label: "Inicio",
+                  },
+                  {
+                    to: "/character",
+                    label: "character",
+                  },
+                  {
+                    to: "/" + characterInformation.slug,
+                    label: `${characterInformation.alias} (${characterInformation.name})`,
+                  },
+                ]}
+              />
+
               <div className="mb-4 flex flex-wrap justify-center gap-2 md:justify-start">
                 <Badge
                   className={`${getCategoryColor(characterInformation.category)} text-white`}
@@ -101,7 +141,10 @@ export function CharacterPage() {
                 </Badge>
                 <Badge
                   variant="secondary"
-                  className={getUniverseColor(characterInformation.universe)}
+                  className={cn(
+                    "text-white",
+                    getUniverseColor(characterInformation.universe),
+                  )}
                 >
                   {characterInformation.universe}
                 </Badge>

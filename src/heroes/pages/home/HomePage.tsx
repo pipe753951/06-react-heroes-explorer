@@ -74,7 +74,7 @@ export function HomePage() {
   };
 
   return (
-    <div className="mx-auto max-w-7xl p-6">
+    <div className="mx-auto w-full max-w-7xl p-6">
       {/* Custom Jumbotron */}
       <CustomJumbotron
         title="Universo de Superhéroes"

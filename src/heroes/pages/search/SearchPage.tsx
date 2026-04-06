@@ -5,7 +5,7 @@ import CustomBreadcrumbs from "@/components/custom/CustomBreadcrumbs";
 
 const SearchPage = function () {
   return (
-    <div className="mx-auto max-w-7xl p-6">
+    <div className="mx-auto w-full max-w-7xl p-6">
       {/* Custom Jumbotron */}
       <CustomJumbotron
         title="Búsqueda de Superhéroes"

@@ -14,10 +14,15 @@ interface CustomBreadcrumbItem {
 }
 
 interface Props {
+  linkClassName?: string;
+  pageClassName?: string;
+  separatorClassName?: string;
   items: CustomBreadcrumbItem[];
 }
 
-export function CustomBreadcrumbs({ items }: Props) {
+export function CustomBreadcrumbs(props: Props) {
+  const { linkClassName, pageClassName, separatorClassName, items } = props;
+
   return (
     <Breadcrumb className="my-5">
       <BreadcrumbList>
@@ -34,7 +39,7 @@ export function CustomBreadcrumbs({ items }: Props) {
             if (itemIndex !== items.length - 1) {
               return (
                 <BreadcrumbItem key={itemHref}>
-                  <BreadcrumbLink asChild>
+                  <BreadcrumbLink className={linkClassName} asChild>
                     <Link to={itemHref}>{itemName}</Link>
                   </BreadcrumbLink>
                 </BreadcrumbItem>
@@ -42,11 +47,18 @@ export function CustomBreadcrumbs({ items }: Props) {
             }
             return (
               <BreadcrumbItem key={itemHref}>
-                <BreadcrumbPage>{itemName}</BreadcrumbPage>
+                <BreadcrumbPage className={pageClassName}>
+                  {itemName}
+                </BreadcrumbPage>
               </BreadcrumbItem>
             );
           }
-          return <BreadcrumbSeparator key={`separator-${itemIndex + 0.5}`} />;
+          return (
+            <BreadcrumbSeparator
+              className={separatorClassName}
+              key={`separator-${itemIndex + 0.5}`}
+            />
+          );
         })}
       </BreadcrumbList>
     </Breadcrumb>
