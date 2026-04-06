@@ -196,7 +196,7 @@ const CharacterGridCard = function (props: Props) {
               )}
             </div>
           </div>
-          <div className="border-t pt-2 text-xs text-gray-500">
+          <div className="border-t py-5 text-xs text-gray-500">
             First appeared: {createdAtYear}
           </div>
         </CardContent>
