@@ -15,8 +15,6 @@ const CharacterStatistics = function () {
     }),
   );
 
-  console.log(summary);
-
   return (
     <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
       <CharacterStatisticCard
