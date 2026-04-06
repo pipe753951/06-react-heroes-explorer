@@ -1,3 +1,4 @@
+import { useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
@@ -12,10 +13,10 @@ import CharacterGrid from "@/heroes/components/CharacterGrid";
 import CharacterStatistics from "@/heroes/components/CharacterStatistics";
 import SearchControls from "../search/ui/SearchControls";
 
-import getHeroesByPage from "@/heroes/actions/getHeroesByPage.action";
-import { useEffect, useMemo } from "react";
+import useCharacterSummary from "@/heroes/hooks/useCharacterSummary";
 import usePageNavigation from "@/shared/hooks/usePageNavigation";
-import { getSummary } from "@/heroes/actions/getSummary.action";
+
+import getHeroesByPage from "@/heroes/actions/getHeroesByPage.action";
 
 type HomeTab = "all" | "favorites" | "heroes" | "villains";
 const validHomeTabs: HomeTab[] = ["all", "favorites", "heroes", "villains"];
@@ -59,13 +60,7 @@ export function HomePage() {
     }),
   );
 
-  const { data: summary } = useQuery(
-    queryOptions({
-      queryKey: ["summary-information"],
-      queryFn: getSummary,
-      staleTime: 300000, // 1000ms * 60s * 5m
-    }),
-  );
+  const { data: summary } = useCharacterSummary();
 
   const setActiveTab = (tab: HomeTab) => {
     setSearchParams((prevParams) => {

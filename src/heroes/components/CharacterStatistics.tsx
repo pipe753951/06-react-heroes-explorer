@@ -1,19 +1,12 @@
-import { queryOptions, useQuery } from "@tanstack/react-query";
-
 import { Users, Heart, Zap, Trophy } from "lucide-react";
+
 import { Badge } from "@/components/ui/badge";
+import useCharacterSummary from "../hooks/useCharacterSummary";
 
 import CharacterStatisticCard from "./CharacterStatisticCard";
-import { getSummary } from "../actions/getSummary.action";
 
 const CharacterStatistics = function () {
-  const { data: summary } = useQuery(
-    queryOptions({
-      queryKey: ["summary-information"],
-      queryFn: getSummary,
-      staleTime: 300000, // 1000ms * 60s * 5m
-    }),
-  );
+  const { data: summary } = useCharacterSummary();
 
   return (
     <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
