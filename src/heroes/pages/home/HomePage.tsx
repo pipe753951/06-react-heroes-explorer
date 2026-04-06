@@ -15,6 +15,7 @@ import SearchControls from "../search/ui/SearchControls";
 import getHeroesByPage from "@/heroes/actions/getHeroesByPage.action";
 import { useEffect, useMemo } from "react";
 import usePageNavigation from "@/shared/hooks/usePageNavigation";
+import { getSummary } from "@/heroes/actions/getSummary.action";
 
 type HomeTab = "all" | "favorites" | "heroes" | "villains";
 const validHomeTabs: HomeTab[] = ["all", "favorites", "heroes", "villains"];
@@ -58,6 +59,14 @@ export function HomePage() {
     }),
   );
 
+  const { data: summary } = useQuery(
+    queryOptions({
+      queryKey: ["summary-information"],
+      queryFn: getSummary,
+      staleTime: 300000, // 1000ms * 60s * 5m
+    }),
+  );
+
   const setActiveTab = (tab: HomeTab) => {
     setSearchParams((prevParams) => {
       const newParams = new URLSearchParams(prevParams);
@@ -93,7 +102,7 @@ export function HomePage() {
       <Tabs value={activeTab} className="mb-8">
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="all" onClick={() => setActiveTab("all")}>
-            All Characters (16)
+            All Characters ({summary?.totalCharacters})
           </TabsTrigger>
           <TabsTrigger
             value="favorites"
@@ -104,13 +113,13 @@ export function HomePage() {
             Favorites (3)
           </TabsTrigger>
           <TabsTrigger value="heroes" onClick={() => setActiveTab("heroes")}>
-            Heroes (12)
+            Heroes ({summary?.heroCount})
           </TabsTrigger>
           <TabsTrigger
             value="villains"
             onClick={() => setActiveTab("villains")}
           >
-            Villains (2)
+            Villains ({summary?.villainCount})
           </TabsTrigger>
         </TabsList>
 
