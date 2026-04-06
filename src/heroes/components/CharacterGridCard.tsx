@@ -4,99 +4,104 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-
-type CharacterType = "hero";
-type Company = "dc" | "marvel";
-type Team = "justiceLeague" | "avengers";
+import type {
+  CharacterCategory,
+  CharacterTeam,
+  CharacterUniverse,
+} from "../types/character.response";
+import { useNavigate } from "react-router";
 
 interface Props {
   active: boolean;
-  author: string;
-  characterType: CharacterType;
-  company: Company;
-  createdAtYear: number;
+  name: string;
+  characterCategory: CharacterCategory;
+  universe: CharacterUniverse;
+  createdAtYear: string;
   description: string;
   durability: number;
   favorite: boolean;
+  imageURL: string;
   intelligence: number;
-  name: string;
+  alias: string;
   powers: string[];
+  slug: string;
   speed: number;
   strength: number;
-  team: Team;
+  team: CharacterTeam;
 }
 
-const characterTypeClassNames: Record<CharacterType, string> = {
-  hero: "bg-green-100 text-green-800 border-green-200",
+const characterCategoryClassNames: Record<CharacterCategory, string> = {
+  Hero: "bg-green-100 text-green-800 border-green-200",
+  Villain: "bg-red-100 text-red-800 border-red-200",
 };
 
-const characterTypeNames: Record<CharacterType, string> = {
-  hero: "Héroe",
+const characterCategoryNames: Record<CharacterCategory, string> = {
+  Hero: "Héroe",
+  Villain: "Villano",
 };
 
-const companyBadgeClassNames: Record<Company, string> = {
-  dc: "bg-blue-600",
-  marvel: "bg-red-600",
+const universeBadgeClassNames: Record<CharacterUniverse, string> = {
+  DC: "bg-blue-600",
+  Marvel: "bg-red-600",
 };
 
-const companyNames: Record<Company, string> = {
-  dc: "DC",
-  marvel: "Marvel",
-};
-
-const teamNames: Record<Team, string> = {
-  justiceLeague: "Justice League",
-  avengers: "Avengers",
-};
-
-const HeroGridCard = function (props: Props) {
+const CharacterGridCard = function (props: Props) {
   const {
     active,
-    author,
-    characterType,
-    company,
+    name,
+    characterCategory,
+    universe,
     createdAtYear,
     description,
     durability,
     favorite,
+    imageURL,
     intelligence,
-    name,
+    alias,
     powers,
+    slug,
     speed,
     strength,
     team,
   } = props;
 
+  const navigate = useNavigate();
+
+  const handleImageClick = () => {
+    navigate(`/character/${slug}`);
+  };
+
   return (
     <section>
-      <Card className="group overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-linear-to-br from-white to-gray-50">
+      <Card className="group overflow-hidden bg-linear-to-br from-white to-gray-50 p-0 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
         <div className="relative h-64 overflow-hidden">
           <img
-            src="/placeholder.svg?height=300&width=300"
-            alt={name}
-            className="object-cover transition-all duration-500 group-hover:scale-110"
+            onClick={handleImageClick}
+            src={imageURL}
+            alt={alias}
+            className="size-full cursor-pointer object-cover object-[50%_20%] transition-all duration-500 group-hover:scale-110"
           />
           {/* Status indicator */}
           <div className="absolute top-3 left-3 flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-green-500" />
+            <div className="h-3 w-3 rounded-full bg-green-500" />
             <Badge
               variant="secondary"
-              className="text-xs bg-white/90 text-gray-700"
+              className="bg-white/90 text-xs text-gray-700"
             >
               {active ? "Activo" : "Inactivo"}
             </Badge>
           </div>
           {/* Universe badge */}
           <Badge
-            className={`absolute top-3 right-3 text-xs text-white ${companyBadgeClassNames[company]}`}
+            className={`absolute top-3 right-3 text-xs text-white ${universeBadgeClassNames[universe]}`}
           >
-            {companyNames[company]}
+            {universe}
           </Badge>
           {/* Favorite button */}
           <Button
             size="sm"
             variant="text"
-            className="absolute bottom-3 right-3 bg-white/90 hover:bg-white"
+            className="absolute right-3 bottom-3 bg-white/90 hover:bg-white"
             aria-label={favorite ? "Quitar de favoritos" : "Añadir a favoritos"}
           >
             <Heart
@@ -107,30 +112,30 @@ const HeroGridCard = function (props: Props) {
           <Button
             size="sm"
             variant="text"
-            className="absolute bottom-3 left-3 bg-white/90 hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity"
-            aria-label={`Ver detalles de ${name}`}
+            className="absolute bottom-3 left-3 bg-white/90 opacity-0 transition-opacity group-hover:opacity-100 hover:bg-white"
+            aria-label={`Ver detalles de ${alias}`}
           >
             <Eye className="h-4 w-4 text-gray-600" />
           </Button>
         </div>
         <CardHeader className="pb-3">
-          <div className="flex justify-between items-start">
+          <div className="flex items-start justify-between">
             <div className="space-y-1">
-              <h2 className="font-bold text-lg leading-tight">{name}</h2>
-              <p className="text-sm text-gray-600">{author}</p>
+              <h2 className="text-lg leading-tight font-bold">{alias}</h2>
+              <p className="text-sm text-gray-600">{name}</p>
             </div>
             <Badge
-              className={`text-xs ${characterTypeClassNames[characterType]}`}
+              className={`text-xs ${characterCategoryClassNames[characterCategory]}`}
             >
-              {characterTypeNames[characterType]}
+              {characterCategoryNames[characterCategory]}
             </Badge>
           </div>
           <Badge variant="outline" className="w-fit text-xs">
-            {teamNames[team]}
+            {team}
           </Badge>
         </CardHeader>
         <CardContent className="space-y-4">
-          <p className="text-sm text-gray-600 line-clamp-2">{description}</p>
+          <p className="line-clamp-2 text-sm text-gray-600">{description}</p>
           {/* Stats */}
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1">
@@ -138,33 +143,42 @@ const HeroGridCard = function (props: Props) {
                 <Zap className="h-3 w-3 text-orange-500" />
                 <span className="text-xs font-medium">Fuerza</span>
               </div>
-              <Progress value={strength} indicatorClassName="bg-orange-500" />
+              <Progress
+                value={strength * 10}
+                indicatorClassName="bg-orange-500"
+              />
             </div>
             <div className="space-y-1">
               <div className="flex items-center gap-1">
                 <Brain className="h-3 w-3 text-blue-500" />
                 <span className="text-xs font-medium">Inteligencia</span>
               </div>
-              <Progress value={intelligence} indicatorClassName="bg-blue-500" />
+              <Progress
+                value={intelligence * 10}
+                indicatorClassName="bg-blue-500"
+              />
             </div>
             <div className="space-y-1">
               <div className="flex items-center gap-1">
                 <Gauge className="h-3 w-3 text-green-500" />
                 <span className="text-xs font-medium">Velocidad</span>
               </div>
-              <Progress value={speed} indicatorClassName="bg-green-500" />
+              <Progress value={speed * 10} indicatorClassName="bg-green-500" />
             </div>
             <div className="space-y-1">
               <div className="flex items-center gap-1">
                 <Shield className="h-3 w-3 text-gray-500" />
                 <span className="text-xs font-medium">Resistencia</span>
               </div>
-              <Progress value={durability} indicatorClassName="bg-gray-500" />
+              <Progress
+                value={durability * 10}
+                indicatorClassName="bg-gray-500"
+              />
             </div>
           </div>
           {/* Powers */}
           <div className="space-y-2">
-            <h2 className="font-medium text-sm">Poderes:</h2>
+            <h2 className="text-sm font-medium">Poderes:</h2>
             <div className="flex flex-wrap gap-1">
               {powers.slice(0, 2).map((power) => (
                 <Badge
@@ -176,13 +190,13 @@ const HeroGridCard = function (props: Props) {
                 </Badge>
               ))}
               {powers.length > 2 && (
-                <Badge variant="outline" className="text-xs bg-gray-100">
+                <Badge variant="outline" className="bg-gray-100 text-xs">
                   {`+${powers.length - 2} more`}
                 </Badge>
               )}
             </div>
           </div>
-          <div className="text-xs text-gray-500 pt-2 border-t">
+          <div className="border-t py-5 text-xs text-gray-500">
             First appeared: {createdAtYear}
           </div>
         </CardContent>
@@ -191,4 +205,4 @@ const HeroGridCard = function (props: Props) {
   );
 };
 
-export default HeroGridCard;
+export default CharacterGridCard;

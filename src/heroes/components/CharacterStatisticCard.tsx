@@ -7,7 +7,7 @@ interface Props extends PropsWithChildren {
   icon: JSX.Element;
 }
 
-const HeroStatisticCard = function (props: Props) {
+const CharacterStatisticCard = function (props: Props) {
   const { children, title, icon } = props;
 
   return (
@@ -21,4 +21,4 @@ const HeroStatisticCard = function (props: Props) {
   );
 };
 
-export default HeroStatisticCard;
+export default CharacterStatisticCard;
