@@ -9,7 +9,7 @@ import CustomJumbotron from "@/components/custom/CustomJumbotron";
 import CustomPagination from "@/components/custom/CustomPagination";
 
 import CharacterGrid from "@/heroes/components/CharacterGrid";
-import HeroStatistics from "@/heroes/components/HeroStatistics";
+import CharacterStatistics from "@/heroes/components/CharacterStatistics";
 import SearchControls from "../search/ui/SearchControls";
 
 import getHeroesByPage from "@/heroes/actions/getHeroesByPage.action";
@@ -84,7 +84,7 @@ export function HomePage() {
       />
 
       {/* Stats Dashboard */}
-      <HeroStatistics />
+      <CharacterStatistics />
 
       {/* Controls */}
       <SearchControls />

@@ -1,11 +1,11 @@
 import CustomJumbotron from "@/components/custom/CustomJumbotron";
-import HeroStatistics from "@/heroes/components/HeroStatistics";
+import CharacterStatistics from "@/heroes/components/CharacterStatistics";
 import SearchControls from "./ui/SearchControls";
 import CustomBreadcrumbs from "@/components/custom/CustomBreadcrumbs";
 
 const SearchPage = function () {
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="mx-auto max-w-7xl p-6">
       {/* Custom Jumbotron */}
       <CustomJumbotron
         title="Búsqueda de Superhéroes"
@@ -26,7 +26,7 @@ const SearchPage = function () {
       />
 
       {/* Stats Dashboard */}
-      <HeroStatistics />
+      <CharacterStatistics />
 
       {/* Filter and Search */}
       <SearchControls />
