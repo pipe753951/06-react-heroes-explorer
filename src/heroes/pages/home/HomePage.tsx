@@ -21,7 +21,10 @@ const validHomeTabs: HomeTab[] = ["all", "favorites", "heroes", "villains"];
 
 export function HomePage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { page, limit } = usePageNavigation({ searchParams, setSearchParams });
+  const { page, limit, setPage } = usePageNavigation({
+    searchParams,
+    setSearchParams,
+  });
 
   const activeTab: HomeTab = useMemo(() => {
     const param = searchParams.get("tab") ?? "";
@@ -49,7 +52,7 @@ export function HomePage() {
 
   const { data: charactersResponseData } = useQuery(
     queryOptions({
-      queryKey: ["heroes", page, limit],
+      queryKey: ["heroes", { page, limit }],
       queryFn: () => getHeroesByPage(page, limit),
       staleTime: 300000, // 1000 * 60 * 5
     }),
@@ -134,7 +137,11 @@ export function HomePage() {
       </Tabs>
 
       {/* Pagination */}
-      <CustomPagination totalPages={8} currentPage={5} />
+      <CustomPagination
+        totalPages={charactersResponseData?.pages ?? 0}
+        currentPage={page}
+        onUpdatePage={setPage}
+      />
     </div>
   );
 }
