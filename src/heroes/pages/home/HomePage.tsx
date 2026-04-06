@@ -16,8 +16,9 @@ import useCharacterSummary from "@/heroes/hooks/useCharacterSummary";
 import usePageNavigation from "@/shared/hooks/usePageNavigation";
 
 import useCharacterPagination from "@/heroes/hooks/useCharacterPagination";
+import useCharacterCategory from "@/heroes/hooks/useCharacterCategory";
 
-type HomeTab = "all" | "favorites" | "heroes" | "villains";
+export type HomeTab = "all" | "favorites" | "heroes" | "villains";
 const validHomeTabs: HomeTab[] = ["all", "favorites", "heroes", "villains"];
 
 export function HomePage() {
@@ -27,9 +28,6 @@ export function HomePage() {
     setSearchParams,
   });
 
-  const { data: charactersResponseData } = useCharacterPagination(page, limit);
-  const { data: summary } = useCharacterSummary();
-
   const activeTab: HomeTab = useMemo(() => {
     const param = searchParams.get("tab") ?? "";
 
@@ -37,6 +35,15 @@ export function HomePage() {
 
     return "all";
   }, [searchParams]);
+
+  const selectedCategory = useCharacterCategory(activeTab);
+
+  const { data: summary } = useCharacterSummary();
+  const { data: charactersResponseData } = useCharacterPagination(
+    page,
+    limit,
+    selectedCategory,
+  );
 
   useEffect(() => {
     const currentParams = new URLSearchParams(window.location.search);
@@ -58,6 +65,10 @@ export function HomePage() {
     setSearchParams((prevParams) => {
       const newParams = new URLSearchParams(prevParams);
       newParams.set("tab", tab);
+
+      //! setPage doesn't work in this function.
+      newParams.set("page", "1");
+
       return newParams;
     });
   };
@@ -124,11 +135,19 @@ export function HomePage() {
         </TabsContent>
         <TabsContent value="heroes">
           {/* Heroes Grid */}
-          {/* <CharacterGrid /> */}
+          {charactersResponseData ? (
+            <CharacterGrid characters={charactersResponseData.heroes} />
+          ) : (
+            <p>Cargando...</p>
+          )}
         </TabsContent>
         <TabsContent value="villains">
           {/* Villains Grid */}
-          {/* <CharacterGrid /> */}
+          {charactersResponseData ? (
+            <CharacterGrid characters={charactersResponseData.heroes} />
+          ) : (
+            <p>Cargando...</p>
+          )}
         </TabsContent>
       </Tabs>
 
