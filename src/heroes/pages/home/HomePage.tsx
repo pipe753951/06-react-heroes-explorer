@@ -1,6 +1,5 @@
 import { useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router";
-import { queryOptions, useQuery } from "@tanstack/react-query";
 
 import { Heart } from "lucide-react";
 
@@ -16,7 +15,7 @@ import SearchControls from "../search/ui/SearchControls";
 import useCharacterSummary from "@/heroes/hooks/useCharacterSummary";
 import usePageNavigation from "@/shared/hooks/usePageNavigation";
 
-import getHeroesByPage from "@/heroes/actions/getHeroesByPage.action";
+import useCharacterPagination from "@/heroes/hooks/useCharacterPagination";
 
 type HomeTab = "all" | "favorites" | "heroes" | "villains";
 const validHomeTabs: HomeTab[] = ["all", "favorites", "heroes", "villains"];
@@ -27,6 +26,9 @@ export function HomePage() {
     searchParams,
     setSearchParams,
   });
+
+  const { data: charactersResponseData } = useCharacterPagination(page, limit);
+  const { data: summary } = useCharacterSummary();
 
   const activeTab: HomeTab = useMemo(() => {
     const param = searchParams.get("tab") ?? "";
@@ -51,16 +53,6 @@ export function HomePage() {
       { replace: true },
     );
   }, [setSearchParams]);
-
-  const { data: charactersResponseData } = useQuery(
-    queryOptions({
-      queryKey: ["heroes", { page, limit }],
-      queryFn: () => getHeroesByPage(page, limit),
-      staleTime: 300000, // 1000ms * 60s * 5m
-    }),
-  );
-
-  const { data: summary } = useCharacterSummary();
 
   const setActiveTab = (tab: HomeTab) => {
     setSearchParams((prevParams) => {
