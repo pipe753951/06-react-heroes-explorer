@@ -54,7 +54,7 @@ export function HomePage() {
     queryOptions({
       queryKey: ["heroes", { page, limit }],
       queryFn: () => getHeroesByPage(page, limit),
-      staleTime: 300000, // 1000 * 60 * 5
+      staleTime: 300000, // 1000ms * 60s * 5m
     }),
   );
 
