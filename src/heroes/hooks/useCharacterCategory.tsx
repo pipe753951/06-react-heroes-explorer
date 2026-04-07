@@ -13,13 +13,9 @@ const characterCategoriesToQuery: Record<
 };
 
 const useCharacterCategory = function (category: HomeTab) {
-  console.log(category);
-
   const validatedCategory: ValidCharacterCategoryToQuery = useMemo(() => {
     return characterCategoriesToQuery[category];
   }, [category]);
-
-  console.log(validatedCategory);
 
   return validatedCategory;
 };
