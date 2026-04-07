@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { use, useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router";
 
 import { Heart } from "lucide-react";
@@ -17,6 +17,7 @@ import usePageNavigation from "@/shared/hooks/usePageNavigation";
 
 import useCharacterPagination from "@/heroes/hooks/useCharacterPagination";
 import useCharacterCategory from "@/heroes/hooks/useCharacterCategory";
+import { FavoriteCharacterContext } from "@/heroes/context/FavoriteCharacterContext";
 
 export type HomeTab = "all" | "favorites" | "heroes" | "villains";
 const validHomeTabs: HomeTab[] = ["all", "favorites", "heroes", "villains"];
@@ -27,6 +28,9 @@ export function HomePage() {
     searchParams,
     setSearchParams,
   });
+  const { favoriteCharactersCount, favoriteCharacters } = use(
+    FavoriteCharacterContext,
+  );
 
   const activeTab: HomeTab = useMemo(() => {
     const param = searchParams.get("tab") ?? "";
@@ -108,7 +112,7 @@ export function HomePage() {
             onClick={() => setActiveTab("favorites")}
           >
             <Heart className="h-4 w-4" />
-            Favorites (3)
+            Favorites ({favoriteCharactersCount})
           </TabsTrigger>
           <TabsTrigger value="heroes" onClick={() => setActiveTab("heroes")}>
             Heroes ({summary?.heroCount})
@@ -131,7 +135,7 @@ export function HomePage() {
         </TabsContent>
         <TabsContent value="favorites">
           {/* Favorites Grid */}
-          {/* <CharacterGrid /> */}
+          <CharacterGrid characters={favoriteCharacters} />
         </TabsContent>
         <TabsContent value="heroes">
           {/* Heroes Grid */}
@@ -151,12 +155,16 @@ export function HomePage() {
         </TabsContent>
       </Tabs>
 
-      {/* Pagination */}
-      <CustomPagination
-        totalPages={charactersResponseData?.pages ?? 0}
-        currentPage={page}
-        onUpdatePage={setPage}
-      />
+      {
+        /* Pagination (not shown in favorites tab) */
+        activeTab !== "favorites" && (
+          <CustomPagination
+            totalPages={charactersResponseData?.pages ?? 0}
+            currentPage={page}
+            onUpdatePage={setPage}
+          />
+        )
+      }
     </div>
   );
 }
