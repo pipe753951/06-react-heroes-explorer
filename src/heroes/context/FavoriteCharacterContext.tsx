@@ -1,4 +1,9 @@
-import { createContext, useState, type PropsWithChildren } from "react";
+import {
+  createContext,
+  useState,
+  type JSX,
+  type PropsWithChildren,
+} from "react";
 import type { Character } from "../types/character.response";
 
 interface FavoriteCharacterContextValue {
@@ -9,17 +14,27 @@ interface FavoriteCharacterContextValue {
   toggleFavorite(character: Character): void;
 }
 
+const getFavoritesArrayFromLocalStorage = function (): Character[] {
+  const favorites = localStorage.getItem("favorites");
+  return favorites ? JSON.parse(favorites) : [];
+};
+
 const FavoriteCharacterContext = createContext(
   {} as FavoriteCharacterContextValue,
 );
 
-const FavoriteCharacterProvider = ({ children }: PropsWithChildren) => {
-  const [favorites, setFavorites] = useState<Character[]>([]);
+const FavoriteCharacterProvider = ({
+  children,
+}: PropsWithChildren): JSX.Element => {
+  const [favorites, setFavorites] = useState<Character[]>(
+    getFavoritesArrayFromLocalStorage(),
+  );
 
-  const toggleFavorite = (character: Character) => {
-    const characterExists = favorites.find(
-      (findingCharacter) => findingCharacter.id == character.id,
-    );
+  const checkFavoriteCharacter = (character: Character): boolean =>
+    favorites.some((findingCharacter) => findingCharacter.id == character.id);
+
+  const toggleFavorite = (character: Character): void => {
+    const characterExists = checkFavoriteCharacter(character);
 
     if (characterExists) {
       setFavorites((prevFavorites) =>
@@ -33,8 +48,8 @@ const FavoriteCharacterProvider = ({ children }: PropsWithChildren) => {
   };
 
   const defaultValue: FavoriteCharacterContextValue = {
-    favorites: [],
-    favoriteCount: 0,
+    favorites,
+    favoriteCount: favorites.length,
 
     checkFavoriteCharacter() {
       return false;
