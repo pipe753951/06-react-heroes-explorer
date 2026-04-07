@@ -7,11 +7,11 @@ import {
 import type { Character } from "../types/character.response";
 
 interface FavoriteCharacterContextValue {
-  favorites: Character[];
-  favoriteCount: number;
+  favoriteCharacters: Character[];
+  favoriteCharactersCount: number;
 
   checkFavoriteCharacter(character: Character): boolean;
-  toggleFavorite(character: Character): void;
+  toggleFavoriteCharacter(character: Character): void;
 }
 
 const getFavoritesArrayFromLocalStorage = function (): Character[] {
@@ -19,7 +19,7 @@ const getFavoritesArrayFromLocalStorage = function (): Character[] {
   return favorites ? JSON.parse(favorites) : [];
 };
 
-const FavoriteCharacterContext = createContext(
+export const FavoriteCharacterContext = createContext(
   {} as FavoriteCharacterContextValue,
 );
 
@@ -33,7 +33,7 @@ const FavoriteCharacterProvider = ({
   const checkFavoriteCharacter = (character: Character): boolean =>
     favorites.some((findingCharacter) => findingCharacter.id == character.id);
 
-  const toggleFavorite = (character: Character): void => {
+  const toggleFavoriteCharacter = (character: Character): void => {
     const characterExists = checkFavoriteCharacter(character);
 
     if (characterExists) {
@@ -48,13 +48,11 @@ const FavoriteCharacterProvider = ({
   };
 
   const defaultValue: FavoriteCharacterContextValue = {
-    favorites,
-    favoriteCount: favorites.length,
+    favoriteCharacters: favorites,
+    favoriteCharactersCount: favorites.length,
 
-    checkFavoriteCharacter() {
-      return false;
-    },
-    toggleFavorite,
+    checkFavoriteCharacter,
+    toggleFavoriteCharacter,
   };
 
   return (
