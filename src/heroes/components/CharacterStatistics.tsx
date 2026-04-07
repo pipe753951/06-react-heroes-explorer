@@ -38,8 +38,11 @@ const CharacterStatistics = function () {
         </div>
         {summary?.totalCharacters ? (
           <p className="text-muted-foreground">
-            {(favoriteCharactersCount * 100) / summary.totalCharacters}% of
-            total
+            {(
+              (favoriteCharactersCount * 100) /
+              summary.totalCharacters
+            ).toFixed(2)}
+            % of total
           </p>
         ) : (
           <p>Cargando...</p>
