@@ -1,5 +1,6 @@
 import {
   createContext,
+  useEffect,
   useState,
   type JSX,
   type PropsWithChildren,
@@ -30,8 +31,15 @@ const FavoriteCharacterProvider = ({
     getFavoritesArrayFromLocalStorage(),
   );
 
-  const checkFavoriteCharacter = (character: Character): boolean =>
-    favorites.some((findingCharacter) => findingCharacter.id == character.id);
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
+
+  const checkFavoriteCharacter = (character: Character): boolean => {
+    return favorites.some(
+      (findingCharacter) => findingCharacter.id == character.id,
+    );
+  };
 
   const toggleFavoriteCharacter = (character: Character): void => {
     const characterExists = checkFavoriteCharacter(character);
@@ -42,6 +50,7 @@ const FavoriteCharacterProvider = ({
           (findingCharacter) => findingCharacter.id !== character.id,
         ),
       );
+      return;
     }
 
     setFavorites((prevFavorites) => [...prevFavorites, character]);

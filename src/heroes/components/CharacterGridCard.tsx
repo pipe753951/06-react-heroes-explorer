@@ -45,6 +45,7 @@ const CharacterGridCard = function ({ character }: Props) {
   const { checkFavoriteCharacter, toggleFavoriteCharacter } = use(
     FavoriteCharacterContext,
   );
+
   const isCharacterFavorite = checkFavoriteCharacter(character);
 
   const handleImageClick = () => {
