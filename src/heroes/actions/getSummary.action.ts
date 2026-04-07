@@ -2,7 +2,7 @@ import heroApi from "../api/hero.api";
 import type { SummaryInformationResponse } from "../types/summaryInformation.response";
 import type { SummaryInformation } from "../types/summaryInformation";
 
-export const getSummary = async function (): Promise<SummaryInformation> {
+const getSummary = async function (): Promise<SummaryInformation> {
   const { data } = await heroApi.get<SummaryInformationResponse>("/summary");
 
   return {
@@ -13,3 +13,5 @@ export const getSummary = async function (): Promise<SummaryInformation> {
     villainCount: data.villainCount,
   };
 };
+
+export default getSummary;
