@@ -10,8 +10,10 @@ import useCharacterSearch from "@/heroes/hooks/useCharacterSearch";
 
 const SearchPage = function () {
   const [searchParams] = useSearchParams();
+
   const { data: characterSearchResults } = useCharacterSearch({
-    name: searchParams.get("search_query") ?? "",
+    name: searchParams.get("search_query") ?? undefined,
+    strength: searchParams.get("strength") ?? undefined,
   });
 
   return (

@@ -15,6 +15,11 @@ const SearchControls = function () {
   const [searchParams, setSearchParams] = useSearchParams();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
+  const isAdvancedSearchFiltersOn = searchParams.get("advanced_search") ?? "";
+  const currentMinStrengthSearchFilter = Number(
+    searchParams.get("strength") ?? 0,
+  );
+
   const handleSearchInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key !== "Enter") return;
     setSearchParams((prevParams) => {
@@ -22,6 +27,27 @@ const SearchControls = function () {
       const inputValue = inputRef.current?.value;
       if (!inputValue) newParams.delete("search_query");
       else newParams.set("search_query", inputValue);
+      return newParams;
+    });
+  };
+
+  const handleFilterButtonClick = () => {
+    setSearchParams((prevParams) => {
+      const newParams = new URLSearchParams(prevParams);
+      const switchedAdvancedSearchFiltersState = !isAdvancedSearchFiltersOn;
+      if (!switchedAdvancedSearchFiltersState)
+        newParams.delete("advanced_search");
+      else newParams.set("advanced_search", "1");
+      return newParams;
+    });
+  };
+
+  const handleSliderMove = (value: number[]) => {
+    setSearchParams((prevParams) => {
+      const newParams = new URLSearchParams(prevParams);
+      const newStrengthSliderValue = value[0];
+      if (!newStrengthSliderValue) newParams.delete("strength");
+      else newParams.set("strength", newStrengthSliderValue.toString());
       return newParams;
     });
   };
@@ -43,23 +69,18 @@ const SearchControls = function () {
         {/* Action buttons */}
         <div className="flex gap-2">
           <Button
-            variant="outline"
-            className="hover:bg-background h-12 bg-transparent"
+            onClick={handleFilterButtonClick}
+            variant={isAdvancedSearchFiltersOn ? "default" : "outline"}
+            className="h-12"
           >
             <Filter className="mr-2 size-4" />
             Filtros
           </Button>
-          <Button
-            variant="outline"
-            className="hover:bg-background h-12 bg-transparent"
-          >
+          <Button variant="outline" className="h-12">
             <SortAsc className="mr-2 size-4" />
             Ordenar por Nombre
           </Button>
-          <Button
-            variant="outline"
-            className="hover:bg-background h-12 bg-transparent"
-          >
+          <Button variant="outline" className="h-12">
             <Grid className="size-4" />
           </Button>
           <Button className="h-12">
@@ -71,8 +92,13 @@ const SearchControls = function () {
 
       {/* Advanced Filters */}
       <div className="mx-auto w-full max-w-6xl p-4">
-        <Accordion type="single" collapsible defaultValue="item-1">
-          <AccordionItem value="item-1" className="data-open:bg-white">
+        <Accordion
+          type="single"
+          collapsible
+          value={isAdvancedSearchFiltersOn}
+          className="bg-white"
+        >
+          <AccordionItem value="1" className="data-open:bg-transparent">
             <AccordionContent className="p-7">
               <div className="mb-4 flex items-center justify-between">
                 <h2 className="text-3xl font-semibold">Filtros avanzados</h2>
@@ -104,11 +130,17 @@ const SearchControls = function () {
                   </div>
                 </div>
               </div>
-              <div className="mt-4 px-7 py-4">
+              <div className="mt-5 px-4">
                 <label className="text-sm font-medium">
-                  Fuerza mínima: 0/10
+                  Fuerza mínima: {currentMinStrengthSearchFilter}/10
                 </label>
-                <Slider defaultValue={[5]} max={10} step={1} />
+                <Slider
+                  className="my-4"
+                  defaultValue={[currentMinStrengthSearchFilter]}
+                  onValueChange={handleSliderMove}
+                  max={10}
+                  step={1}
+                />
               </div>
             </AccordionContent>
           </AccordionItem>
