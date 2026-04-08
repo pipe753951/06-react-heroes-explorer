@@ -14,7 +14,7 @@ export interface SearchCharactersQueryOptions {
 
 const searchCharactersAction = async function (
   options: SearchCharactersQueryOptions,
-): Promise<Character[]> {
+): Promise<Character[] | null> {
   if (
     !options.name &&
     !options.team &&
@@ -23,7 +23,7 @@ const searchCharactersAction = async function (
     !options.status &&
     !options.strength
   ) {
-    return [];
+    return null;
   }
 
   const { data: responseData } = await heroUniverseApi.get<Character[]>(
