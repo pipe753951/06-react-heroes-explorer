@@ -4,6 +4,12 @@ import { Search, Filter, SortAsc, Grid, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useSearchParams } from "react-router";
+import { Slider } from "@/components/ui/slider";
+import {
+  AccordionItem,
+  AccordionContent,
+  Accordion,
+} from "@/components/ui/accordion";
 
 const SearchControls = function () {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -64,49 +70,49 @@ const SearchControls = function () {
       </div>
 
       {/* Advanced Filters */}
-      <div className="mb-8 rounded-4xl border bg-white p-6 shadow-sm">
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold">Filtros avanzados</h2>
-          <Button variant="text">Limpiar todo</Button>
-        </div>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Equipo</label>
-            <div className="border-input bg-background h-10 w-full rounded-md border px-3 py-2 text-sm">
-              Cualquiera
-            </div>
-          </div>
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Categoría</label>
-            <div className="border-input bg-background h-10 w-full rounded-md border px-3 py-2 text-sm">
-              Cualquiera
-            </div>
-          </div>
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Universo</label>
-            <div className="border-input bg-background h-10 w-full rounded-md border px-3 py-2 text-sm">
-              Cualquiera
-            </div>
-          </div>
-          <div className="space-y-2">
-            <label className="text-sm font-medium">Estado</label>
-            <div className="border-input bg-background h-10 w-full rounded-md border px-3 py-2 text-sm">
-              Cualquiera
-            </div>
-          </div>
-        </div>
-        <div className="mt-4">
-          <label className="text-sm font-medium">Fuerza mínima: 0/10</label>
-          <div className="relative mt-2 flex w-full touch-none items-center select-none">
-            <div className="bg-secondary relative h-2 w-full grow overflow-hidden rounded-full">
-              <div
-                className="bg-primary absolute h-full"
-                style={{ width: "0%" }}
-              />
-            </div>
-            <div className="border-primary bg-background ring-offset-background block h-5 w-5 rounded-full border-2 transition-colors" />
-          </div>
-        </div>
+      <div className="mx-auto w-full max-w-6xl p-4">
+        <Accordion type="single" collapsible defaultValue="item-1">
+          <AccordionItem value="item-1" className="data-open:bg-white">
+            <AccordionContent className="p-7">
+              <div className="mb-4 flex items-center justify-between">
+                <h2 className="text-3xl font-semibold">Filtros avanzados</h2>
+                <Button variant="text">Limpiar todo</Button>
+              </div>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Equipo</label>
+                  <div className="border-input bg-background h-10 w-full rounded-md border px-3 py-2 text-sm">
+                    Cualquiera
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Categoría</label>
+                  <div className="border-input bg-background h-10 w-full rounded-md border px-3 py-2 text-sm">
+                    Cualquiera
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Universo</label>
+                  <div className="border-input bg-background h-10 w-full rounded-md border px-3 py-2 text-sm">
+                    Cualquiera
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Estado</label>
+                  <div className="border-input bg-background h-10 w-full rounded-md border px-3 py-2 text-sm">
+                    Cualquiera
+                  </div>
+                </div>
+              </div>
+              <div className="mt-4 px-7 py-4">
+                <label className="text-sm font-medium">
+                  Fuerza mínima: 0/10
+                </label>
+                <Slider defaultValue={[5]} max={10} step={1} />
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
       </div>
     </>
   );
