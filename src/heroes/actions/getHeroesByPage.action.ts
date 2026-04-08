@@ -8,8 +8,6 @@ const getHeroesByPage = async (
   limit: number = 6,
   category: ValidCharacterCategoryToQuery,
 ): Promise<HeroesResponse> => {
-  console.log(page);
-
   const { data } = await heroApi.get<HeroesResponse>("/", {
     params: {
       category,
