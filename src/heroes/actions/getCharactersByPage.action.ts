@@ -1,14 +1,14 @@
 import heroUniverseApi, { HERO_API_BASE_URL } from "../api/heroUniverse.api";
 
-import type { HeroesResponse } from "../types/getHeroes.response";
+import type { CharactersResponse } from "../types/getCharacters.response";
 import type { ValidCharacterCategoryToQuery } from "../types/validCharacterCategoryQuery.type";
 
 const getCharactersByPage = async (
   page: number,
   limit: number = 6,
   category: ValidCharacterCategoryToQuery,
-): Promise<HeroesResponse> => {
-  const { data } = await heroUniverseApi.get<HeroesResponse>("/", {
+): Promise<CharactersResponse> => {
+  const { data } = await heroUniverseApi.get<CharactersResponse>("/", {
     params: {
       category,
       limit,
