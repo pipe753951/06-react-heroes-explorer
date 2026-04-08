@@ -3,7 +3,7 @@ import heroUniverseApi, { HERO_API_BASE_URL } from "../api/heroUniverse.api";
 import type { HeroesResponse } from "../types/getHeroes.response";
 import type { ValidCharacterCategoryToQuery } from "../types/validCharacterCategoryQuery.type";
 
-const getHeroesByPage = async (
+const getCharactersByPage = async (
   page: number,
   limit: number = 6,
   category: ValidCharacterCategoryToQuery,
@@ -16,12 +16,12 @@ const getHeroesByPage = async (
     },
   });
 
-  const heroes = data.heroes.map((hero) => ({
-    ...hero,
-    image: `${HERO_API_BASE_URL}/images/${hero.image}`,
+  const characters = data.heroes.map((character) => ({
+    ...character,
+    image: `${HERO_API_BASE_URL}/images/${character.image}`,
   }));
 
-  return { ...data, heroes };
+  return { ...data, heroes: characters };
 };
 
-export default getHeroesByPage;
+export default getCharactersByPage;
