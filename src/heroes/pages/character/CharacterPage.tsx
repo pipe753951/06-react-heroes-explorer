@@ -355,7 +355,7 @@ export function CharacterPage() {
                   {characterInformation.powers.map((power, index) => (
                     <div
                       key={index}
-                      className="rounded-lg border border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 p-4"
+                      className="rounded-lg border border-blue-200 bg-linear-to-r from-blue-50 to-indigo-50 p-4"
                     >
                       <div className="flex items-center gap-3">
                         <div className="rounded-full bg-blue-500 p-2">

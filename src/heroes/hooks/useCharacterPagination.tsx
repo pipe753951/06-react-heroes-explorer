@@ -1,7 +1,7 @@
 import { useQuery, queryOptions } from "@tanstack/react-query";
 
 import type { ValidCharacterCategoryToQuery } from "../types/validCharacterCategoryQuery.type";
-import getHeroesByPage from "../actions/getHeroesByPage.action";
+import getCharactersByPage from "../actions/getCharactersByPage.action";
 
 const useCharacterPagination = (
   page: number,
@@ -11,7 +11,7 @@ const useCharacterPagination = (
   useQuery(
     queryOptions({
       queryKey: ["heroes", { page, limit, category }],
-      queryFn: () => getHeroesByPage(page, limit, category),
+      queryFn: () => getCharactersByPage(page, limit, category),
       staleTime: 300000, // 1000ms * 60s * 5m
     }),
   );

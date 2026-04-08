@@ -1,5 +1,5 @@
 import { queryOptions, useQuery } from "@tanstack/react-query";
-import { getSummary } from "../actions/getSummary.action";
+import getSummary from "../actions/getSummary.action";
 
 const useCharacterSummary = () =>
   useQuery(
