@@ -1,9 +1,10 @@
-import heroApi from "../api/hero.api";
+import heroUniverseApi from "../api/heroUniverse.api";
 import type { SummaryInformationResponse } from "../types/summaryInformation.response";
 import type { SummaryInformation } from "../types/summaryInformation";
 
 const getSummary = async function (): Promise<SummaryInformation> {
-  const { data } = await heroApi.get<SummaryInformationResponse>("/summary");
+  const { data } =
+    await heroUniverseApi.get<SummaryInformationResponse>("/summary");
 
   return {
     totalCharacters: data.totalHeroes,
