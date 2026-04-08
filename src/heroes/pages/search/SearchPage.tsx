@@ -1,9 +1,19 @@
-import CustomJumbotron from "@/components/custom/CustomJumbotron";
+import { useSearchParams } from "react-router";
+
+import CharacterGrid from "@/heroes/components/CharacterGrid";
 import CharacterStatistics from "@/heroes/components/CharacterStatistics";
-import SearchControls from "./ui/SearchControls";
 import CustomBreadcrumbs from "@/components/custom/CustomBreadcrumbs";
+import CustomJumbotron from "@/components/custom/CustomJumbotron";
+
+import SearchControls from "./ui/SearchControls";
+import useCharacterSearch from "@/heroes/hooks/useCharacterSearch";
 
 const SearchPage = function () {
+  const [searchParams] = useSearchParams();
+  const { data: characterSearchResults } = useCharacterSearch({
+    name: searchParams.get("search_query") ?? "",
+  });
+
   return (
     <div className="mx-auto w-full max-w-7xl p-6">
       {/* Custom Jumbotron */}
@@ -30,6 +40,11 @@ const SearchPage = function () {
 
       {/* Filter and Search */}
       <SearchControls />
+
+      {/* Search results */}
+      {characterSearchResults && (
+        <CharacterGrid characters={characterSearchResults} />
+      )}
     </div>
   );
 };

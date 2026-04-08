@@ -3,7 +3,7 @@ import heroUniverseApi, {
 } from "../api/heroUniverse.api";
 import type { Character } from "../types/character.response";
 
-interface Options {
+export interface SearchCharactersQueryOptions {
   name?: string;
   team?: string;
   category?: string;
@@ -13,8 +13,19 @@ interface Options {
 }
 
 const searchCharactersAction = async function (
-  options: Options,
+  options: SearchCharactersQueryOptions,
 ): Promise<Character[]> {
+  if (
+    !options.name &&
+    !options.team &&
+    !options.category &&
+    !options.universe &&
+    !options.status &&
+    !options.strength
+  ) {
+    return [];
+  }
+
   const { data: responseData } = await heroUniverseApi.get<Character[]>(
     "/search",
     {
