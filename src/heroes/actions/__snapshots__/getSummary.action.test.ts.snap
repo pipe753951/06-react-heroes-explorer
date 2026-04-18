@@ -1,0 +1,58 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`getSummaryAction > must get a characeter summary and be same as snapshot. 1`] = `
+{
+  "heroCount": 18,
+  "smartestHero": {
+    "alias": "Batman",
+    "category": "Hero",
+    "description": "El Caballero Oscuro de Ciudad Gótica, que utiliza el miedo como arma contra el crimen y la corrupción.",
+    "durability": 7,
+    "firstAppearance": "1939",
+    "id": "2",
+    "image": "2.jpeg",
+    "intelligence": 10,
+    "name": "Bruce Wayne",
+    "powers": [
+      "Artes marciales",
+      "Habilidades de detective",
+      "Tecnología avanzada",
+      "Sigilo",
+      "Genio táctico",
+    ],
+    "slug": "bruce-wayne",
+    "speed": 6,
+    "status": "Active",
+    "strength": 6,
+    "team": "Liga de la Justicia",
+    "universe": "DC",
+  },
+  "strongestHero": {
+    "alias": "Superman",
+    "category": "Hero",
+    "description": "El Último Hijo de Krypton, protector de la Tierra y símbolo de esperanza para toda la humanidad.",
+    "durability": 10,
+    "firstAppearance": "1938",
+    "id": "1",
+    "image": "1.jpeg",
+    "intelligence": 8,
+    "name": "Clark Kent",
+    "powers": [
+      "Súper fuerza",
+      "Vuelo",
+      "Visión de calor",
+      "Visión de rayos X",
+      "Invulnerabilidad",
+      "Súper velocidad",
+    ],
+    "slug": "clark-kent",
+    "speed": 9,
+    "status": "Active",
+    "strength": 10,
+    "team": "Liga de la Justicia",
+    "universe": "DC",
+  },
+  "totalCharacters": 25,
+  "villainCount": 7,
+}
+`;
