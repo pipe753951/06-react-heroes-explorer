@@ -3,14 +3,14 @@ import getCharacter from "./getCharacter.action";
 import { HERO_UNIVERSE_API_BASE_URL } from "../api/heroUniverse.api";
 
 describe("getCharacter action", () => {
-  test("should fetch a character data and return a character with the full image URL.", async () => {
+  test("must fetch a character data and return a character with the full image URL.", async () => {
     const character = await getCharacter("peter-parker");
 
     const expectedCharacterImageURL = `${HERO_UNIVERSE_API_BASE_URL}/images/${character.id}.jpeg`;
     expect(character.image).toBe(expectedCharacterImageURL);
   });
 
-  test("should throw an error when character isn't found.", async () => {
+  test("must throw an error when character isn't found.", async () => {
     //* Forma aplicada por el instructor.
     // await getCharacter("unknown").catch((error) => {
     //   expect(error).toBeDefined();
@@ -23,8 +23,8 @@ describe("getCharacter action", () => {
     );
   });
 
-  describe("Custom tests.", () => {
-    test("should fetch a character data and return a character that matches its snapshot.", async () => {
+  describe("Custom tests", () => {
+    test("must fetch a character data and return a character that matches its snapshot.", async () => {
       const character = await getCharacter("peter-parker");
 
       expect(character).toMatchSnapshot();
