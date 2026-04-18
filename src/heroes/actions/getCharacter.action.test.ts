@@ -1,4 +1,4 @@
-import { describe, expect, test, vi } from "vitest";
+import { describe, expect, test } from "vitest";
 import getCharacter from "./getCharacter.action";
 import { HERO_UNIVERSE_API_BASE_URL } from "../api/heroUniverse.api";
 
@@ -11,10 +11,23 @@ describe("getCharacter action", () => {
   });
 
   test("should throw an error when character isn't found.", async () => {
-    const getCharacterCallback = async () => {
-      await getCharacter("unknown");
-    };
+    //* Forma aplicada por el instructor.
+    // await getCharacter("unknown").catch((error) => {
+    //   expect(error).toBeDefined();
+    //   expect(error.message).toBe("Request failed with status code 404");
+    // });
 
-    await expect(getCharacterCallback).toThrow();
+    //* Verificación de error en función asíncrona de manera directa.
+    await expect(getCharacter("unknown")).rejects.toThrow(
+      "Request failed with status code 404",
+    );
+  });
+
+  describe("Custom tests.", () => {
+    test("should fetch a character data and return a character that matches its snapshot.", async () => {
+      const character = await getCharacter("peter-parker");
+
+      expect(character).toMatchSnapshot();
+    });
   });
 });
