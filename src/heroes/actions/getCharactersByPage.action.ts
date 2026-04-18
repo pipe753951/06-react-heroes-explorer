@@ -8,7 +8,7 @@ import type { ValidCharacterCategoryToQuery } from "../types/validCharacterCateg
 const getCharactersByPage = async (
   page: number,
   limit: number = 6,
-  category: ValidCharacterCategoryToQuery,
+  category: ValidCharacterCategoryToQuery = "all",
 ): Promise<CharactersResponse> => {
   const { data } = await heroUniverseApi.get<CharactersResponse>("/", {
     params: {
