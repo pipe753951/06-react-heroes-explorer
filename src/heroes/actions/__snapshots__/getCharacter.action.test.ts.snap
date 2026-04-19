@@ -26,30 +26,3 @@ exports[`getCharacter action > Custom tests > must fetch a character data and re
   "universe": "Marvel",
 }
 `;
-
-exports[`getCharacter action > Custom tests. > should fetch a character data and return a character that matches its snapshot. 1`] = `
-{
-  "alias": "Spider-Man",
-  "category": "Hero",
-  "description": "Tu amistoso vecino Spider-Man, con gran poder viene una gran responsabilidad.",
-  "durability": 7,
-  "firstAppearance": "1962",
-  "id": "5",
-  "image": "http://localhost:3001/images/5.jpeg",
-  "intelligence": 9,
-  "name": "Peter Parker",
-  "powers": [
-    "Escalar muros",
-    "Sentido arácnido",
-    "Lanzar telarañas",
-    "Agilidad sobrehumana",
-    "Reflejos mejorados",
-  ],
-  "slug": "peter-parker",
-  "speed": 7,
-  "status": "Active",
-  "strength": 7,
-  "team": "Vengadores",
-  "universe": "Marvel",
-}
-`;
