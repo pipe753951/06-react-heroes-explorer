@@ -10,6 +10,9 @@ const getCharactersByPage = async (
   limit: number = 6,
   category: ValidCharacterCategoryToQuery = "all",
 ): Promise<CharactersResponse> => {
+  if (isNaN(page) || page < 1) page = 1;
+  if (isNaN(limit) || limit < 2) page = 6;
+
   const { data } = await heroUniverseApi.get<CharactersResponse>("/", {
     params: {
       category,
