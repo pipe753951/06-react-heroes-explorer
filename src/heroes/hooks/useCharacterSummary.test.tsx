@@ -41,6 +41,8 @@ describe("useCharacterSummary", () => {
   const heroUniverseApiMock = new AxiosMockAdapter(heroUniverseApi);
   afterEach(() => {
     heroUniverseApiMock.reset();
+
+    getSummaryActionMock.mockClear();
   });
 
   test("must return initial state (isLoading).", async () => {
@@ -122,5 +124,26 @@ describe("useCharacterSummary", () => {
     } as UseQueryResult<SummaryInformation, Error>);
 
     expect(result.current.data).toMatchSnapshot();
+  });
+
+  test("must return an error when mock API call failed.", async () => {
+    const mockError = new Error("Summary fetch failed");
+    getSummaryActionMock.mockRejectedValue(mockError);
+
+    const { result } = renderHook(useCharacterSummary, {
+      wrapper: reactQueryTestingProvider(),
+    });
+
+    await waitFor(() => {
+      expect(result.current).toMatchObject({
+        isLoading: false,
+        isSuccess: false,
+        isError: true,
+        data: undefined,
+        error: expect.objectContaining({ message: mockError.message }),
+      } as UseQueryResult<SummaryInformation, Error>);
+    });
+
+    expect(getSummaryActionMock).toHaveBeenCalledTimes(1);
   });
 });
