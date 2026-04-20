@@ -6,7 +6,7 @@ import getCharactersByPage from "../actions/getCharactersByPage.action";
 const useCharacterPagination = (
   page: number,
   limit: number,
-  category: ValidCharacterCategoryToQuery,
+  category: ValidCharacterCategoryToQuery = "all",
 ) =>
   useQuery(
     queryOptions({
