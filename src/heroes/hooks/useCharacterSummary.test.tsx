@@ -44,7 +44,22 @@ describe("useCharacterSummary", () => {
   });
 
   test("must return initial state (isLoading).", async () => {
-    heroUniverseApiMock.onGet("/summary").withDelayInMs(1000).reply(200);
+    const summaryDataMock = {
+      totalCharacters: 10,
+      strongestHero: {
+        id: "1",
+        name: "clark-kent",
+      },
+      smartestHero: {
+        id: "1",
+        name: "clark-kent",
+      },
+      heroCount: 18,
+      villainCount: 7,
+    } as SummaryInformation;
+
+    getSummaryActionMock.mockResolvedValue(summaryDataMock);
+
     const { result } = renderHook(useCharacterSummary, {
       wrapper: reactQueryTestingProvider(),
     });
@@ -64,7 +79,6 @@ describe("useCharacterSummary", () => {
 
     await waitFor(() => {
       expect(result.current.isSuccess).toBe(true);
-      console.log(result.current);
     });
 
     expect(result.current.isLoading).toBe(false);
