@@ -1,5 +1,5 @@
 import { use } from "react";
-import { describe, expect, test } from "vitest";
+import { afterEach, describe, expect, test } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 
 import type { Character } from "../types/character.response";
@@ -57,6 +57,10 @@ const renderContextTest = function () {
 };
 
 describe("FavoriteCharacterContext", () => {
+  afterEach(() => {
+    localStorage.clear();
+  });
+
   test("must initialize with default value.", () => {
     renderContextTest();
 
@@ -76,21 +80,55 @@ describe("FavoriteCharacterContext", () => {
 
     fireEvent.click(toggleFavoriteCharacterBtn);
 
+    const favoriteCharactersCountElement = screen.getByTestId(
+      "favorite-characters-count",
+    );
+
     const isMockCharacterFavoriteElement = screen.getByTestId(
       "is-mock-character-favorite",
     );
 
-    const favoriteCharacterToEvaluate = screen.getByTestId(
+    const favoriteCharacterToEvaluateElement = screen.getByTestId(
       `character-${mockCharacter.id}`,
     );
 
+    expect(favoriteCharactersCountElement.textContent).toBe("1");
     expect(isMockCharacterFavoriteElement.textContent).toBe("true");
-    expect(favoriteCharacterToEvaluate.textContent).toBe("Peter Parker");
+    expect(favoriteCharacterToEvaluateElement.textContent).toBe("Peter Parker");
 
     expect(JSON.parse(localStorage.getItem("favorites") ?? "")).toStrictEqual([
       { id: "1", name: "Peter Parker" },
     ]);
+  });
 
-    screen.debug();
+  test("must remove a character from the favorites list when toggleFavorite is called for that character.", () => {
+    localStorage.setItem("favorites", JSON.stringify([mockCharacter]));
+
+    renderContextTest();
+
+    const toggleFavoriteCharacterBtn = screen.getByTestId(
+      "toggle-favorite-character-btn",
+    );
+    fireEvent.click(toggleFavoriteCharacterBtn);
+
+    const favoriteCharactersCountElement = screen.getByTestId(
+      "favorite-characters-count",
+    );
+
+    const isMockCharacterFavoriteElement = screen.getByTestId(
+      "is-mock-character-favorite",
+    );
+
+    const favoriteCharacterToEvaluateElement = screen.queryByTestId(
+      `character-${mockCharacter.id}`,
+    );
+
+    expect(favoriteCharactersCountElement.textContent).toBe("0");
+    expect(isMockCharacterFavoriteElement.textContent).toBe("false");
+    expect(favoriteCharacterToEvaluateElement).toBe(null);
+
+    expect(JSON.parse(localStorage.getItem("favorites") ?? "")).toStrictEqual(
+      [],
+    );
   });
 });
