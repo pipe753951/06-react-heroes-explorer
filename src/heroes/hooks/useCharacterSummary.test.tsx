@@ -11,9 +11,10 @@ import AxiosMockAdapter from "axios-mock-adapter";
 
 import heroUniverseApi from "../api/heroUniverse.api";
 
+import type { SummaryInformation } from "../types/summaryInformation";
+
 import useCharacterSummary from "./useCharacterSummary";
 import getSummary from "../actions/getSummary.action";
-import type { SummaryInformation } from "../types/summaryInformation";
 
 vi.mock("../actions/getSummary.action", () => ({
   default: vi.fn(),
