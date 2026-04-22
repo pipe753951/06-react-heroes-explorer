@@ -1,0 +1,61 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`appRouter > must be configured as expected. 1`] = `
+[
+  {
+    "children": [
+      {
+        "element": <default />,
+        "hasErrorBoundary": false,
+        "id": "0-0",
+        "index": true,
+      },
+      {
+        "children": undefined,
+        "element": <CharacterPage />,
+        "errorElement": <Navigate
+          to="/"
+        />,
+        "hasErrorBoundary": true,
+        "id": "0-1",
+        "path": "/character/:idOrSlug",
+      },
+      {
+        "children": undefined,
+        "element": <Navigate
+          replace={true}
+          to="/search"
+        />,
+        "hasErrorBoundary": false,
+        "id": "0-2",
+        "path": "/character/",
+      },
+      {
+        "children": undefined,
+        "element": <UNDEFINED />,
+        "hasErrorBoundary": false,
+        "id": "0-3",
+        "path": "/search",
+      },
+    ],
+    "element": <HeroesLayout />,
+    "hasErrorBoundary": false,
+    "id": "0",
+    "path": "/",
+  },
+  {
+    "children": [
+      {
+        "element": <AdminPage />,
+        "hasErrorBoundary": false,
+        "id": "1-0",
+        "index": true,
+      },
+    ],
+    "element": <AdminLayout />,
+    "hasErrorBoundary": false,
+    "id": "1",
+    "path": "/admin",
+  },
+]
+`;
