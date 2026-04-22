@@ -12,7 +12,7 @@ exports[`appRouter > must be configured as expected. 1`] = `
       },
       {
         "children": undefined,
-        "element": <CharacterPage />,
+        "element": <default />,
         "errorElement": <Navigate
           to="/"
         />,
@@ -38,7 +38,7 @@ exports[`appRouter > must be configured as expected. 1`] = `
         "path": "/search",
       },
     ],
-    "element": <HeroesLayout />,
+    "element": <default />,
     "hasErrorBoundary": false,
     "id": "0",
     "path": "/",

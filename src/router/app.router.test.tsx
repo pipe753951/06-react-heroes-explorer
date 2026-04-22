@@ -1,20 +1,41 @@
 import { describe, expect, test, vi } from "vitest";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 
-import { Outlet, RouterProvider } from "react-router";
+import {
+  createMemoryRouter,
+  Outlet,
+  RouterProvider,
+  useParams,
+} from "react-router";
 
 import { appRouter } from "./app.router";
 
-vi.mock("@/admin/layouts/HeroesLayout", () => ({
-  default: () => (
-    <div data-testid="layout">
-      <Outlet />
-    </div>
-  ),
+const MockCharacterPage = function () {
+  const { idOrSlug } = useParams();
+
+  return <div data-testid="character-page">{idOrSlug}</div>;
+};
+
+vi.mock("@/heroes/layouts/HeroesLayout", () => ({
+  default: () => {
+    return (
+      <div data-testid="layout">
+        <Outlet />
+      </div>
+    );
+  },
 }));
 
 vi.mock("@/heroes/pages/home/HomePage", () => ({
   default: () => <div data-testid="home-page" />,
+}));
+
+vi.mock("@/heroes/pages/character/CharacterPage", () => ({
+  default: () => MockCharacterPage(),
+}));
+
+vi.mock("@/heroes/pages/search/SearchPage", () => ({
+  default: () => <div data-testid="search-page" />,
 }));
 
 describe("appRouter", () => {
@@ -23,6 +44,33 @@ describe("appRouter", () => {
   });
 
   test("must be at root path and render home page.", () => {
-    render(<RouterProvider router={appRouter} />);
+    const testingRouter = createMemoryRouter(appRouter.routes, {
+      initialEntries: ["/"],
+    });
+
+    render(<RouterProvider router={testingRouter} />);
+
+    expect(screen.queryByTestId("home-page")).not.toBeNull();
+  });
+
+  test("must render a character at /character/:idOrSlug path.", () => {
+    const slugToEvaluate = "clark-kent";
+    const testingRouter = createMemoryRouter(appRouter.routes, {
+      initialEntries: [`/character/${slugToEvaluate}`],
+    });
+
+    render(<RouterProvider router={testingRouter} />);
+
+    expect(screen.getByTestId("character-page").innerHTML).toBe(slugToEvaluate);
+  });
+
+  test("must render a search page at /search path.", async () => {
+    const testingRouter = createMemoryRouter(appRouter.routes, {
+      initialEntries: ["/search"],
+    });
+
+    render(<RouterProvider router={testingRouter} />);
+
+    expect(await screen.findByTestId("search-page")).not.toBeNull();
   });
 });
