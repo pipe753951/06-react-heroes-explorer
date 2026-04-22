@@ -57,5 +57,15 @@ exports[`appRouter > must be configured as expected. 1`] = `
     "id": "1",
     "path": "/admin",
   },
+  {
+    "children": undefined,
+    "element": <Navigate
+      replace={true}
+      to="/"
+    />,
+    "hasErrorBoundary": false,
+    "id": "2",
+    "path": "*",
+  },
 ]
 `;

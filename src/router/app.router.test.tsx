@@ -73,4 +73,16 @@ describe("appRouter", () => {
 
     expect(await screen.findByTestId("search-page")).not.toBeNull();
   });
+
+  test("must redirect to home page when a unknown route was given on path.", () => {
+    const testingRouter = createMemoryRouter(appRouter.routes, {
+      initialEntries: ["/unknown-route"],
+    });
+
+    render(<RouterProvider router={testingRouter} />);
+
+    screen.debug();
+
+    expect(screen.queryByTestId("home-page")).not.toBeNull();
+  });
 });
