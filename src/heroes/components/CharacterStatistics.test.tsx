@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { SummaryInformation } from "../types/summaryInformation";
 
 import useCharacterSummary from "../hooks/useCharacterSummary";
+import FavoriteCharacterContext from "../context/FavoriteCharacterContext";
 import CharacterStatistics from "./CharacterStatistics";
 
 vi.mock("../hooks/useCharacterSummary");
@@ -85,7 +86,9 @@ const renderCharacterStatistics = function (
 
   return render(
     <QueryClientProvider client={testingQueryClient}>
-      <CharacterStatistics />
+      <FavoriteCharacterContext>
+        <CharacterStatistics />
+      </FavoriteCharacterContext>
     </QueryClientProvider>,
   );
 };
@@ -93,8 +96,6 @@ const renderCharacterStatistics = function (
 describe("HeroStats", () => {
   test("must render with default state and values.", () => {
     const { container } = renderCharacterStatistics();
-
-    screen.debug();
 
     expect(screen.queryByText("Cargando...")).not.toBeNull();
     expect(container).toMatchSnapshot();
@@ -109,6 +110,25 @@ describe("HeroStats", () => {
     expect(screen.queryByText("El más inteligente")).not.toBeNull();
 
     expect(container).toMatchSnapshot();
+  });
+
+  test("must change percentage of favorite characters when a character had already added to list.", async () => {
+    localStorage.setItem(
+      "favorites",
+      JSON.stringify([mockSummaryData.smartestHero]),
+    );
+
+    renderCharacterStatistics(mockSummaryData);
+
+    const favoritePercentageElement = screen.getByLabelText(
+      "Favorite characters percentage",
+    );
+    expect(favoritePercentageElement.innerHTML).toBe("4.00% of total");
+
+    const favoriteCharactersCountElement = screen.getByLabelText(
+      "Favorite characters count",
+    );
+    expect(favoriteCharactersCountElement.innerHTML).toBe("1");
 
     screen.debug(undefined, 1000000000000000);
   });

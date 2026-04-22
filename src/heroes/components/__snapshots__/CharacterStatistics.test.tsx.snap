@@ -118,12 +118,16 @@ exports[`HeroStats > must render with default mock summary data. 1`] = `
         data-slot="card-content"
       >
         <div
+          aria-label="Favorite characters count"
           class="text-3xl font-bold text-red-600"
-        />
+        >
+          0
+        </div>
         <p
+          aria-label="Favorite characters percentage"
           class="text-muted-foreground"
         >
-          NaN
+          0.00
           % of total
         </p>
       </div>
@@ -363,8 +367,11 @@ exports[`HeroStats > must render with default state and values. 1`] = `
         data-slot="card-content"
       >
         <div
+          aria-label="Favorite characters count"
           class="text-3xl font-bold text-red-600"
-        />
+        >
+          0
+        </div>
         <p>
           Cargando...
         </p>

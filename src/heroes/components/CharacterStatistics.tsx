@@ -33,11 +33,17 @@ const CharacterStatistics = function () {
         icon={<Heart className="text-muted-foreground size-5" />}
       >
         {/* TODO: obtener y calcular porcentaje favoritos contra total de personajes. */}
-        <div className="text-3xl font-bold text-red-600">
+        <div
+          className="text-3xl font-bold text-red-600"
+          aria-label="Favorite characters count"
+        >
           {favoriteCharactersCount}
         </div>
         {summary?.totalCharacters ? (
-          <p className="text-muted-foreground">
+          <p
+            className="text-muted-foreground"
+            aria-label="Favorite characters percentage"
+          >
             {(
               (favoriteCharactersCount * 100) /
               summary.totalCharacters
