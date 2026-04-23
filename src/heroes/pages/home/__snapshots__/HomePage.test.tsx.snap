@@ -158,7 +158,9 @@ exports[`HomePage > must render HomePage with default query parameters, state an
           <div
             aria-label="Favorite characters count"
             class="text-3xl font-bold text-red-600"
-          />
+          >
+            0
+          </div>
           <p>
             Cargando...
           </p>
@@ -537,6 +539,7 @@ exports[`HomePage > must render HomePage with default query parameters, state an
             />
           </svg>
           Favorites (
+          0
           )
         </button>
         <button

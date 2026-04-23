@@ -69,8 +69,7 @@ describe("HomePage", () => {
   });
 
   test("must call useCharacterPagination with expected page but same limit when a tab is clicked", () => {
-    //!: Page changes to 1 when indicated page was greater than one.
-    renderHomePage(["/?page=1&limit=10&tab=favorites"]);
+    renderHomePage(["/?page=2&limit=10&tab=favorites"]);
 
     const [, , , villainsTab] = screen.getAllByRole("tab");
 
