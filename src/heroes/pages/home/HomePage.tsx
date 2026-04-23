@@ -50,7 +50,7 @@ export function HomePage() {
   );
 
   useEffect(() => {
-    const currentParams = new URLSearchParams(window.location.search);
+    const currentParams = new URLSearchParams(searchParams);
     const tabParam = currentParams.get("tab");
 
     if (tabParam && (validHomeTabs as string[]).includes(tabParam)) return;
@@ -63,7 +63,7 @@ export function HomePage() {
       },
       { replace: true },
     );
-  }, [setSearchParams]);
+  }, [searchParams, setSearchParams]);
 
   const setActiveTab = (tab: HomeTab) => {
     setSearchParams((prevParams) => {
