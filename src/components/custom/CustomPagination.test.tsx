@@ -13,9 +13,24 @@ vi.mock("@/components/ui/button", () => ({
 describe("CustomPagination", () => {
   test("must render with default values.", () => {
     render(<CustomPagination totalPages={4} />);
-    screen.debug();
 
     expect(screen.queryByText("Ir atrás")).not.toBeNull();
     expect(screen.queryByText("Siguiente")).not.toBeNull();
+  });
+
+  test("must disable go back button when the component hightlights the first page.", () => {
+    render(<CustomPagination totalPages={4} />);
+
+    const previousButton = screen.getByText("Ir atrás");
+
+    expect(previousButton.getAttributeNames()).toContain("disabled");
+  });
+
+  test("must disable next button when the component hightlights the last page (5).", () => {
+    render(<CustomPagination totalPages={4} currentPage={4} />);
+
+    const nextButton = screen.getByText("Siguiente");
+
+    expect(nextButton.getAttributeNames()).toContain("disabled");
   });
 });
