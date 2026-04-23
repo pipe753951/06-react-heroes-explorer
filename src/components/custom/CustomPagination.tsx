@@ -5,7 +5,7 @@ interface Props {
   currentPage?: number;
   totalPages: number;
 
-  onUpdatePage(page: number): void;
+  onUpdatePage?(page: number): void;
 }
 
 const CustomPagination = function ({
@@ -15,14 +15,16 @@ const CustomPagination = function ({
 }: Props) {
   const handleBackButtonClick = () => {
     if (currentPage - 1 < 1) return;
-    onUpdatePage(currentPage - 1);
+    onUpdatePage?.(currentPage - 1);
   };
   const handleForwardButtonClick = () => {
     if (currentPage + 1 > totalPages) return;
-    onUpdatePage(currentPage + 1);
+    onUpdatePage?.(currentPage + 1);
   };
 
-  const handlePageButtonClick = onUpdatePage;
+  const handlePageButtonClick = (currentPage: number) => {
+    onUpdatePage?.(currentPage);
+  };
 
   return (
     <div className="flex items-center justify-center space-x-2">
