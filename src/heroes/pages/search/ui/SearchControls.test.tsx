@@ -14,6 +14,17 @@ const renderSearchControlsWithRouter = function (
   );
 };
 
+// If in window are not ResizeObserver, set "fake" class to prevent errors.
+if (typeof window.ResizeObserver === "undefined") {
+  class ResizeObserver {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  }
+
+  window.ResizeObserver = ResizeObserver;
+}
+
 describe("SearchControls", () => {
   test("must render this component with default query parameters.", () => {
     const { container } = renderSearchControlsWithRouter();
@@ -44,5 +55,29 @@ describe("SearchControls", () => {
     fireEvent.keyDown(inputElement, { key: "Enter" });
 
     expect(inputElement.getAttribute("value")).toBe("Clark Kent");
+  });
+
+  test('must change query parameter "strength" when slider is moved.', () => {
+    renderSearchControlsWithRouter(["/search/?advanced_search=1"]);
+
+    const sliderElement = screen.getByRole("slider");
+    expect(sliderElement.getAttribute("aria-valuenow")).toBe("0");
+
+    fireEvent.keyDown(sliderElement, { key: "ArrowRight" });
+    expect(sliderElement.getAttribute("aria-valuenow")).toBe("1");
+  });
+
+  test("must have advanced filters accordion item open when query parameters indicates it.", () => {
+    renderSearchControlsWithRouter(["/search/?advanced_search=1"]);
+
+    const accordionItem = screen.getByRole("region");
+    expect(accordionItem.dataset.state).toBe("open");
+  });
+
+  test("must have advanced filters accordion item closed when query parameters indicates it.", () => {
+    renderSearchControlsWithRouter(["/search"]);
+
+    const accordionItem = screen.queryByRole("region");
+    expect(accordionItem).toBeNull();
   });
 });
